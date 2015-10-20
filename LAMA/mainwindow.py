@@ -91,23 +91,27 @@ class MainWindow ( QMainWindow ):
     # Ripley's K-function
         self.ui.pushButton_05.clicked.connect(self.ripley)
     # Register channels
-        self.ui.pushButton_06.clicked.connect(self.register)
+        self.ui.pushButton_06.clicked.connect(self.detectBeads)
+        self.ui.pushButton_07.clicked.connect(self.register)
     # Calculate CBC
-        self.ui.pushButton_07.clicked.connect(self.cbc_procedure)
+        self.ui.pushButton_08.clicked.connect(self.cbc_procedure)
     # Calculate DBSCAN
-        self.ui.pushButton_12.clicked.connect(self.DBSCAN_procedure)
+        self.ui.pushButton_09.clicked.connect(self.DBSCAN_procedure)
+        self.ui.pushButton_10.clicked.connect(self.analyze_hc_cluster)
+    # Calculate Stoichiometry
+        self.ui.pushButton_11.clicked.connect(self.smEmiter_procedure)
     # Load Settings
-        self.ui.lineEdit_39.setDragEnabled(True)
-        self.ui.lineEdit_39.setAcceptDrops(True)
-        self.ui.pushButton_08.clicked.connect(self.browse_import_path)
-        self.ui.lineEdit_39.textChanged.connect(self.drop_import_path)
-        self.ui.pushButton_09.clicked.connect(self.import_settings)
+        self.ui.lineEdit_45.setDragEnabled(True)
+        self.ui.lineEdit_45.setAcceptDrops(True)
+        self.ui.pushButton_12.clicked.connect(self.browse_import_path)
+        self.ui.lineEdit_45.textChanged.connect(self.drop_import_path)
+        self.ui.pushButton_13.clicked.connect(self.import_settings)
     # Save Settings
-        self.ui.lineEdit_40.setDragEnabled(True)
-        self.ui.lineEdit_40.setAcceptDrops(True)
-        self.ui.pushButton_10.clicked.connect(self.browse_save_path)
-        self.ui.lineEdit_40.textChanged.connect(self.drop_save_path)
-        self.ui.pushButton_11.clicked.connect(self.save_settings) 
+        self.ui.lineEdit_46.setDragEnabled(True)
+        self.ui.lineEdit_46.setAcceptDrops(True)
+        self.ui.pushButton_14.clicked.connect(self.browse_save_path)
+        self.ui.lineEdit_46.textChanged.connect(self.drop_save_path)
+        self.ui.pushButton_15.clicked.connect(self.save_settings)
         
         
 
@@ -210,12 +214,21 @@ class MainWindow ( QMainWindow ):
                 rois=lc.calc_ripley_rois(files[i+1])
                 lc.calc_ripley(files[i],rois,edge,radius,inc_num,pxl,fixed_ind,fix_val,append)
         lc.statement()
-        
+
+    def detectBeads(self):
+        files=define_file_type(self)
+        roi=define_roi(self)
+        r_min=int(self.ui.lineEdit_28.text())
+        r_max=int(self.ui.lineEdit_29.text())
+        on_min=int(self.ui.lineEdit_30.text())
+        on_max=int(self.ui.lineEdit_31.text())
+        lc.callBeadDetection(files, roi, r_min, r_max, on_min, on_max)
+        lc.statement()
+
     def register(self):
         if self.ui.radioButton_01.isChecked():
             print ('the lama can only operate registrations with multiple localization files')
         else:
-            append='_statMIA'
             files=define_file_type(self)
             pxl=int(self.ui.lineEdit_15.text())
             if self.ui.checkBox_02.isChecked():
@@ -224,16 +237,15 @@ class MainWindow ( QMainWindow ):
                 fixed_ind=0
             fix_val=int(self.ui.lineEdit_17.text())
             roi=define_roi(self)
-            r_min=int(self.ui.lineEdit_28.text())
-            r_max=int(self.ui.lineEdit_29.text())
-            r=int(self.ui.lineEdit_30.text())
-            n=float(self.ui.lineEdit_31.text())
-            d=int(self.ui.lineEdit_32.text())
+            disp=int(self.ui.lineEdit_32.text())
             if self.ui.radioButton_05.isChecked():
                 reg_ind=1
             else:
                 reg_ind=0
-            lc.calc_registration(files,roi,pxl,fixed_ind,fix_val,r_min,r_max,r,n,d,reg_ind,append)
+            if (len(files)%3)!=0:
+                print('Wrong number of files! The lama always needs 3 files to calculate a registration: A bead file from the first chanel (MCA format), a bead file from the second channel (MCA format), and a localization file from the second channel (MALK format).')
+            else:
+                lc.calc_registration(files,disp,reg_ind)
             lc.statement()
         
     def cbc_procedure(self):
@@ -265,36 +277,84 @@ class MainWindow ( QMainWindow ):
         roi=define_roi(self)
         eps=float(self.ui.lineEdit_36.text())
         pmin=int(self.ui.lineEdit_37.text())
+        pxl=int(self.ui.lineEdit_15.text())
         if self.ui.radioButton_10.isChecked():
             noise_ind=float(self.ui.lineEdit_38.text())
             for i in range (0,len(files)):
-                lc.OPTICS_based_clustering(files[i], roi, eps, noise_ind, pmin, append)
+                lc.OPTICS_based_clustering(files[i], roi, eps, noise_ind, pmin, pxl, append)
         else:
             for i in range (0,len(files)):
-                lc.DBSCAN_based_clustering(files[i],roi,eps,pmin,append)
+                lc.DBSCAN_based_clustering(files[i],roi,eps,pmin, pxl, append)
         lc.statement()
-    
+
+    def analyze_hc_cluster(self):
+        append = '_statMIA'
+        files=define_file_type(self)
+        roi=define_roi(self)
+        eps=float(self.ui.lineEdit_36.text())
+        pmin=int(self.ui.lineEdit_37.text())
+        pxl=int(self.ui.lineEdit_15.text())
+        cond=0
+        if self.ui.checkBox_04.isChecked():
+            cond=1
+        for i in range (0, len(files)):
+            print ('condense locs')
+            hcaType = '/hca_analysis.txt'
+            lc.hierarchical_cluster_Analysis(files[i], roi, pxl, eps, pmin, cond, append, hcaType)
+        '''
+        if self.ui.checkBox_04.isChecked():
+            for i in range (0, len(files)):
+                print ('condense locs')
+                hcaType = '/hca_condensed_roi.txt'
+                lc.hierarchical_cluster_Analysis_condensed(files[i], roi, pxl, eps, pmin, append, hcaType)
+        else:
+            for i in range (0,len(files)):
+                hcaType = '/hca_roi.txt'
+                lc.hierarchical_cluster_Analysis(files[i], roi, pxl, eps, pmin, append, hcaType)
+        '''
+        lc.statement()
+
+    def smEmiter_procedure(self):
+        append = '_statMIA'
+        files=define_file_type(self)
+        roi=define_roi(self)
+        rMin = int(self.ui.lineEdit_41.text())
+        rMax = int(self.ui.lineEdit_42.text())
+        iMin = int(self.ui.lineEdit_43.text())
+        iMax = int(self.ui.lineEdit_44.text())
+        if self.ui.checkBox_05.isChecked():
+            pType = 1
+        else:
+            pType = 0
+        p = float(self.ui.lineEdit_45.text())
+        eps=float(self.ui.lineEdit_36.text())
+        pmin=int(self.ui.lineEdit_37.text())
+        lc.count_emitters(self.filename, files, roi, rMin, rMax, iMin, iMax, pType, p, eps, pmin, append)
+        lc.statement()
+
     def browse_import_path(self):
         '''
             get path name from pyQT
             Update lineEdit
         '''
         self.import_filename = QtGui.QFileDialog.getOpenFileName(self, 'Open File', '.')
-        self.ui.lineEdit_39.setText(self.import_filename)
+        self.ui.lineEdit_45.setText(self.import_filename)
     
     def drop_import_path(self):
         '''
-            update lineEdit_39 for new filename
+            update lineEdit_45 for new filename
         '''
-        self.import_filename=str(self.ui.lineEdit_39.text())
-        self.ui.lineEdit_39.setText(self.import_filename)
+        self.import_filename=str(self.ui.lineEdit_45.text())
+        self.ui.lineEdit_45.setText(self.import_filename)
     
     def import_settings(self):
         settings=lc.load_settings(self.import_filename)
+        # Main / Input
         if settings[0,0]==1.0:
             self.ui.radioButton_01.setChecked(True)
         else:
             self.ui.radioButton_02.setChecked(True)
+        # Main / ROI
         self.ui.lineEdit_02.setText(str(settings[1,0]))
         self.ui.lineEdit_03.setText(str(settings[2,0]))
         self.ui.lineEdit_04.setText(str(settings[3,0]))
@@ -305,9 +365,11 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_09.setText(str(settings[8,0]))
         self.ui.lineEdit_10.setText(str(settings[9,0]))
         self.ui.lineEdit_11.setText(str(settings[10,0]))
+        # Main / Setup
         self.ui.lineEdit_12.setText(str(settings[11,0]))
         self.ui.lineEdit_13.setText(str(settings[12,0]))
         self.ui.lineEdit_14.setText(str(settings[13,0]))
+        # Visualize / Iamge
         self.ui.lineEdit_15.setText(str(int(settings[14,0])))
         self.ui.lineEdit_16.setText(str(settings[15,0]))
         self.ui.lineEdit_17.setText(str(int(settings[16,0])))
@@ -323,6 +385,7 @@ class MainWindow ( QMainWindow ):
             self.ui.checkBox_02.setChecked(True)
         else:
             self.ui.checkBox_02.setChecked(False)
+        # Visualize / MCA
         if settings[20,0]==1.0:
             self.ui.checkBox_03.setChecked(True)
         else:
@@ -330,21 +393,26 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_18.setText(str(int(settings[21,0])))
         self.ui.lineEdit_19.setText(str(int(settings[22,0])))
         self.ui.lineEdit_20.setText(str(int(settings[23,0])))
+        # Accuracy / Theoretical
         self.ui.lineEdit_21.setText(str(settings[24,0]))
         self.ui.lineEdit_22.setText(str(settings[25,0]))
         self.ui.lineEdit_23.setText(str(settings[26,0]))
+        # Ripley's K-function
         self.ui.lineEdit_24.setText(str(settings[27,0]))
         self.ui.lineEdit_25.setText(str(settings[28,0]))
         self.ui.lineEdit_26.setText(str(int(settings[29,0])))
+        # Register / Bead Detection
         self.ui.lineEdit_28.setText(str(int(settings[30,0])))
         self.ui.lineEdit_29.setText(str(int(settings[31,0])))
         self.ui.lineEdit_30.setText(str(int(settings[32,0])))
         self.ui.lineEdit_31.setText(str(settings[33,0]))
+        # Register / Registration
         self.ui.lineEdit_32.setText(str(int(settings[34,0])))
         if settings[35,0]==1.0:
             self.ui.radioButton_05.setChecked(True)
         else:
             self.ui.radioButton_06.setChecked(True)
+        # CBC
         self.ui.lineEdit_33.setText(str(int(settings[36,0])))
         self.ui.lineEdit_34.setText(str(int(settings[37,0])))
         self.ui.lineEdit_35.setText(str(settings[38,0]))
@@ -352,6 +420,7 @@ class MainWindow ( QMainWindow ):
             self.ui.radioButton_07.setChecked(True)
         else:
             self.ui.radioButton_08.setChecked(True)
+        # Hierarchical Clustering / sort
         if settings[40,0]==1.0:
             self.ui.radioButton_10.setChecked(True)
         else:
@@ -359,6 +428,26 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_36.setText(str(int(settings[41,0])))
         self.ui.lineEdit_37.setText(str(int(settings[42,0])))
         self.ui.lineEdit_38.setText(str(settings[43,0]))
+        # Hierarchical Clustering / MCA
+        if settings[44,0]==1.0:
+            self.ui.chekBox_04.setChecked(True)
+        else:
+            self.ui.checkBox_04.setChecked(False)
+        # Stoichiometry
+        self.ui.lineEdit_39.setText(str(int(settings[45,0])))
+        self.ui.lineEdit_40.setText(str(int(settings[46,0])))
+        self.ui.lineEdit_41.setText(str(int(settings[47,0])))
+        self.ui.lineEdit_42.setText(str(int(settings[48,0])))
+        self.ui.lineEdit_43.setText(str(settings[49,0]))
+        self.ui.lineEdit_44.setText(str(settings[50,0]))
+        if settings[51,0]==1.0:
+            self.ui.chekBox_05.setChecked(True)
+        else:
+            self.ui.checkBox_05.setChecked(False)
+        if settings[52,0]==1.0:
+            self.ui.chekBox_06.setChecked(True)
+        else:
+            self.ui.checkBox_06.setChecked(False)
         lc.statement()
         
     def browse_save_path(self):
@@ -367,20 +456,22 @@ class MainWindow ( QMainWindow ):
             Update lineEdit
         '''
         self.save_filename = QtGui.QFileDialog.getExistingDirectory(self, 'Save Settings', '.')
-        self.ui.lineEdit_40.setText(self.save_filename)
+        self.ui.lineEdit_46.setText(self.save_filename)
     
     def drop_save_path(self):
         '''
-            update lineEdit_40 for new filename
+            update lineEdit_46 for new filename
         '''
-        self.save_filename=str(self.ui.lineEdit_40.text())
-        self.ui.lineEdit_40.setText(self.save_filename)
+        self.save_filename=str(self.ui.lineEdit_46.text())
+        self.ui.lineEdit_46.setText(self.save_filename)
     
     def save_settings(self):
         dir_name=self.save_filename
-        settings=np.zeros([44,1])
+        settings=np.zeros([53,1])
+        # Main / Input
         if self.ui.radioButton_01.isChecked():
             settings[0]=1
+        # Main / ROI
         settings[1]=float(self.ui.lineEdit_02.text())
         settings[2]=float(self.ui.lineEdit_03.text())
         settings[3]=float(self.ui.lineEdit_04.text())
@@ -391,9 +482,11 @@ class MainWindow ( QMainWindow ):
         settings[8]=float(self.ui.lineEdit_09.text())
         settings[9]=float(self.ui.lineEdit_10.text())
         settings[10]=float(self.ui.lineEdit_11.text())
+        # Main / Setup
         settings[11]=float(self.ui.lineEdit_12.text())
         settings[12]=float(self.ui.lineEdit_13.text())
         settings[13]=float(self.ui.lineEdit_14.text())
+        # Visualize / Iamge
         settings[14]=float(self.ui.lineEdit_15.text())
         settings[15]=float(self.ui.lineEdit_16.text())
         settings[16]=float(self.ui.lineEdit_17.text())
@@ -403,33 +496,54 @@ class MainWindow ( QMainWindow ):
             settings[18]=1
         if self.ui.checkBox_02.isChecked():
             settings[19]=1
+        # Visualize / MCA
         if self.ui.checkBox_03.isChecked():
             settings[20]=1
         settings[21]=float(self.ui.lineEdit_18.text())
         settings[22]=float(self.ui.lineEdit_19.text())
         settings[23]=float(self.ui.lineEdit_20.text())
+        # Accuracy / Theoretical
         settings[24]=float(self.ui.lineEdit_21.text())
         settings[25]=float(self.ui.lineEdit_22.text())
         settings[26]=float(self.ui.lineEdit_23.text())
+        # Ripley's K-function
         settings[27]=float(self.ui.lineEdit_24.text())
         settings[28]=float(self.ui.lineEdit_25.text())
         settings[29]=float(self.ui.lineEdit_26.text())
+        # Register / Bead Detection
         settings[30]=float(self.ui.lineEdit_28.text())
         settings[31]=float(self.ui.lineEdit_29.text())
         settings[32]=float(self.ui.lineEdit_30.text())
         settings[33]=float(self.ui.lineEdit_31.text())
+        # Register / Registration
         settings[34]=float(self.ui.lineEdit_32.text())
         if self.ui.radioButton_05.isChecked():
             settings[35]=1
+        # CBC
         settings[36]=float(self.ui.lineEdit_33.text())
         settings[37]=float(self.ui.lineEdit_34.text())
         settings[38]=float(self.ui.lineEdit_35.text())
         if self.ui.radioButton_07.isChecked():
             settings[39]=1
+        # Hierarchical Clustering / sort
         if self.ui.radioButton_10.isChecked():
             settings[40]=1
         settings[41] = float(self.ui.lineEdit_36.text())
         settings[42] = float(self.ui.lineEdit_37.text())
         settings[43] = float(self.ui.lineEdit_38.text())
+        # Hierarchical Clustering / MCA
+        if self.ui.checkBox_04.isChecked():
+            settings[44] = 1
+        # Stoichiometry
+        settings[45] = float(self.ui.lineEdit_39.text())
+        settings[46] = float(self.ui.lineEdit_40.text())
+        settings[47] = float(self.ui.lineEdit_41.text())
+        settings[48] = float(self.ui.lineEdit_42.text())
+        settings[49] = float(self.ui.lineEdit_43.text())
+        settings[50] = float(self.ui.lineEdit_44.text())
+        if self.ui.checkBox_05.isChecked():
+            settings[51] = 1
+        if self.ui.checkBox_06.isChecked():
+            settings[52] = 1
         la.write_settings(settings,dir_name)
         lc.statement()

@@ -28,7 +28,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from mainwindow import MainWindow
-
+ver = 1510
+print ('\nSingle Molecule Biophysics\nUniversity of Frankfurt\nloading the Lama...\n')
 if __name__ == '__main__':
 
     # create application
@@ -39,7 +40,7 @@ if __name__ == '__main__':
     w = MainWindow()
     w.setWindowTitle( 'lama' )
     w.show()
-
+    print ('The Lama (v.%i) is saddled and ready to pronk through your SMLM coordinate lists.\n'%(ver))
 
     # connection
     QObject.connect( app, SIGNAL( 'lastWindowClosed()' ), app, SLOT( 'quit()' ) )

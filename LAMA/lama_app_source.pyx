@@ -18,8 +18,6 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#next step: np.ndarray[double, ndim=1]
-
 cimport numpy as cnp
 import numpy as np
 import scipy as sp
@@ -30,8 +28,10 @@ import sys
 import matplotlib.pyplot as plt
 from scipy import ndimage
 from scipy import spatial
+from scipy import special
 from scipy.stats import spearmanr
 from scipy.optimize import curve_fit
+from scipy.stats import nbinom
 from PIL import Image, ImageDraw
 
 def update_progress(float progress):
@@ -138,6 +138,31 @@ def create_roi_ripley(cnp.ndarray[double, ndim=2] locs, cnp.ndarray[double, ndim
     hd=str('localization roi file (Malk format)\nx[nm]\ty[nm]\t[frame]\tI[a.u.]')
     np.savetxt(outfilename, locs1, fmt='%.5e', delimiter='   ',header = hd, comments='# ')
     return locs1
+
+def createRoiBead(cnp.ndarray[double, ndim=2] fas,cnp.ndarray[double, ndim=2] roi, int r_min, int r_max, int on_min, int on_max, str outfilename):
+    '''
+        Input: FAS list MCA format
+        Sorts for spatial coordinates (roi), FAS size (r_min, r_max), Localizations (on_min, on_max)
+        saves FAS file MCA format
+    '''
+    cdef str hd
+    cdef int cnum
+    cdef cnp.ndarray[double, ndim=2] fas_sort
+    cdef cnp.ndarray idx1, idx2, idy1, idy2, idr1, idr2, ido1, ido2
+
+    idx1=fas[:,0]>=roi[0,0]
+    idx2=fas[:,0]<=roi[0,1]
+    idy1=fas[:,1]>=roi[1,0]
+    idy2=fas[:,1]<=roi[1,1]
+    idr1=fas[:,3]>=r_min
+    idr2=fas[:,3]<=r_max
+    ido1=fas[:,4]>=on_min
+    ido2=fas[:,4]<=on_max
+    fas_sort = (fas[(idx1&idx2&idy1&idy2&idr1&idr2&ido1&ido2),:])
+    cnum=np.shape(fas_sort)[0]
+    hd=str('Cluster analysis LAMA format\nnumber of cluster: %i \nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(cnum))
+    np.savetxt(outfilename, fas_sort, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
+
 
 def make_Image(cnp.ndarray[double, ndim=2] locs, cnp.ndarray[double, ndim=2] roi, int pxl, int fixed_ind, int fix_val, str name):
     '''
@@ -453,16 +478,6 @@ def plot_NeNA(cnp.ndarray[double, ndim=1] NeNA_dist, str dir_name):
     plt.close()
     return acc, acc_err
 
-'''
-def delete_beads(locs,buds,r,n):
-    m=max(locs[:,2])-(n*(max(locs[:,2])/100.0))
-    tree=spatial.KDTree(locs[:,0:2])
-    x=tree.query_ball_point(buds, r)
-    lengths = np.asarray([len(m) for m in x]).astype('float')
-    idx = np.where((lengths < m) & (lengths > 1))
-    sort_buds = buds[(idx), :][0]
-    return sort_buds
-'''
 
 def detect_beads(cnp.ndarray[double, ndim=2] locs, cnp.ndarray[double, ndim=2] buds, int r, float n):
     '''
@@ -489,19 +504,15 @@ def write_sort_beads(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndi
         Receives bud files and saves them.
     '''
     cdef str bud_name01, bud_name02, hd
+    cdef int cnum
     
     bud_name01=name01[0:(len(name01)-4)]+'_Beads.txt'
     bud_name02=name02[0:(len(name02)-4)]+'_Beads.txt'
-    hd=str('Bead file (Lama format)\nx[nm]\ty[nm]')
+    cnum = np.shape(buds01)[0]
+    hd=str('Cluster analysis LAMA format\nnumber of cluster: %i \nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(cnum))
     np.savetxt(bud_name01, buds01, fmt='%.5e', delimiter='   ',header=hd,comments='# ')
     np.savetxt(bud_name02, buds02, fmt='%.5e', delimiter='   ',header=hd,comments='# ')
 
-'''
-def write_sort_buds(buds01,name01):
-    
-    bud_name01=name01[0:(len(name01)-4)]+'_fasc.txt'
-    np.savetxt(bud_name01, buds01, fmt='%.5e', delimiter='   ')
-'''
 
 def draw_roi(cnp.ndarray[double, ndim=2] BW, cnp.ndarray[double, ndim=2] buds, int r, int pxl, str name):
     '''
@@ -530,8 +541,8 @@ def link_fuducials(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndim=
     
     tree01=spatial.KDTree(buds01[:,0:2])
     tree02=spatial.KDTree(buds02[:,0:2])
-    x01=tree01.query_ball_point(buds02, rmax)
-    x02=tree02.query_ball_point(buds01, rmax)
+    x01=tree01.query_ball_point(buds02[:,0:2], rmax)
+    x02=tree02.query_ball_point(buds01[:,0:2], rmax)
     idx01=np.zeros([1], dtype=int)
     idx02=np.zeros([1], dtype=int)
     for i in range(0,len(x01)):
@@ -547,7 +558,7 @@ def link_fuducials(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndim=
     idx02=np.delete(idx02,0)
     buds01=buds01[idx02,:]
     tree01=spatial.KDTree(buds01[:,0:2])
-    x01=tree01.query_ball_point(buds02, rmax)
+    x01=tree01.query_ball_point(buds02[:,0:2], rmax)
     idx01=np.zeros([1], dtype=int)
     for i in range(0,len(x01)):
         length01 = len(x01[i])
@@ -563,8 +574,7 @@ def plot_buds(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndim=2]bud
     '''
     cdef str outname
     
-    outname=name+'/buds.pdf'
-    
+    outname=name[0:(len(name)-4)] +'_buds.pdf'
     f, axarr = plt.subplots(1, sharex=False)
     axarr.plot(buds01[:,0],buds01[:,1], 'ob')
     axarr.plot(buds02[:,0],buds02[:,1], 'xr')
@@ -657,16 +667,10 @@ def register_channels(cnp.ndarray[double, ndim=2] locs02, cnp.ndarray[double, nd
     
     H=create_Affine_Matrix(buds02,buds01)
     locs025=translate_locs(locs02,H)
-    outname=name +'/channel_registered.txt'
+    outname=name[0:(len(name)-4)] +'_channel_registered.txt'
     hd = str('localization roi file (Malk format)\nx[nm]\ty[nm]\t[frame]\tI[a.u.]')
     np.savetxt(outname, locs025, fmt='%.5e', delimiter='   ',header=hd,comments='# ')
-'''
-def register_channels_trans(locs02,buds02,buds01,name):
-    H=create_lin_trans_Matrix(buds02,buds01)
-    locs025=translate_locs(locs02,H)
-    outname=name +'/channel_registered.txt'
-    np.savetxt(outname, locs025, fmt='%.5e', delimiter='   ')
-'''
+
 
 def register_channels_trans(cnp.ndarray[double, ndim=2] locs02, cnp.ndarray[double, ndim=2] buds02, cnp.ndarray[double, ndim=2] buds01, str name):
     '''
@@ -679,19 +683,10 @@ def register_channels_trans(cnp.ndarray[double, ndim=2] locs02, cnp.ndarray[doub
     locs025=locs02
     locs025[:,0]=locs02[:,0]-np.mean(H[:,0])
     locs025[:,1]=locs02[:,1]-np.mean(H[:,1])
-    outname=name +'/channel_registered.txt'
+    outname=name[0:(len(name)-4)] +'_channel_registered.txt'
     hd = str('localization roi file (Malk format)\nx[nm]\ty[nm]\t[frame]\tI[a.u.]')
     np.savetxt(outname, locs025, fmt='%.5e', delimiter='   ',header=hd,comments='# ')
 
-'''
-def bud_dist(locs02,fids02,fids01,name):
-    x=fids02[:,0]-fids01[:,0]
-    y=fids02[:,1]-fids01[:,1]
-    locs02[:,0]=locs02[:,0]+np.mean(x)
-    locs02[:,1]=locs02[:,1]+np.mean(y)
-    outname=name +'/channel_registered.txt'
-    np.savetxt(outname, locs02, fmt='%.5e', delimiter='   ')
-'''
 
 def RipleysEdge(cnp.ndarray[double, ndim=2] BoxOR, float Dist, str name):
     '''
@@ -803,82 +798,6 @@ def RipleysK(cnp.ndarray[double, ndim=2] BoxOR, cnp.ndarray[double, ndim=2] BoxM
     plt.savefig(Plotname, bbox_inches='tight')
     plt.close()
 
-'''
-def RipleysK_01(cnp.ndarray[double, ndim=2] BoxOR, cnp.ndarray[double, ndim=2] BoxMR, int Ink, float R, float d, str name):
-    # tree based ripley alternative semms slower than original.
-    cdef str H, RIPname, Plotname
-    cdef int n
-    cdef long m
-    cdef float rp, Ro, est, lam, rad
-    cdef cnp.ndarray[double, ndim=1] r
-    cdef cnp.ndarray[double, ndim=2] Kr, K
-    
-    Kr=np.zeros([Ink,2])
-    treeB=spatial.KDTree(BoxOR[:,0:2])
-    treeA=spatial.KDTree(BoxMR[:,0:2])
-    rp=R/Ink
-    r=np.arange(0,R,rp)
-    Kr[:,0]=treeA.count_neighbors(treeB, r)
-    Ro=len(BoxOR)/(d**2)
-    est=Ro*(math.pi*(R**2))*len(BoxOR)
-    lam=1/(math.pi*(R**2))
-    Kr[:,1]=Kr[:,0]/(lam*est)
-    
-    K=np.zeros([Ink,7])
-    for n in range(0,Ink):
-        rad=n*(R/Ink)
-        K[n,0]=rad
-        K[n,1]=np.pi*rad*rad
-        K[n,2]=Kr[n,1]
-        K[n,3]=rad
-        K[n,4]=np.sqrt(K[n,2]/np.pi)
-        K[n,5]=K[n,3]-rad
-        K[n,6]=K[n,4]-rad
-    m=np.argmax(K[:,6])
-    #hier maximum in Header einarbeiten
-    H="Ripley's K-Function Maximum %.1f at r = %.1f [nm]." %(K[m,6],K[m,0])
-    RIPname=name + '/ripley.txt'
-    np.savetxt(RIPname, K, fmt='%.3e', delimiter='   ',header=H, comments='# ')
-    
-    Plotname=name + '/ripley.pdf'
-    plt.plot(K[:,0], K[:,5], 'b')
-    plt.plot(K[:,0], K[:,6], 'r')
-    plt.savefig(Plotname, bbox_inches='tight')
-    plt.close()
-
-
-#Fuer K-Function verwenden????
-def partner_test(locsA,locsB,inc,rmax):
-    treeB=spatial.KDTree(locsB[:,0:2])
-    treeA=spatial.KDTree(locsA[:,0:2])
-    rp=rmax/inc
-    r=np.arange(0,rmax,rp)
-    X=treeA.count_neighbors(treeB, r[1])
-    print (X)
-
-def ripley_max(ripley):
-    m=np.argmax(ripley[:,6])
-    return (ripley[m,0], ripley[m,6])
-
-def write_ripley_max(max,name):
-    out_name=name +'/ripley_max.txt'
-    np.savetxt(out_name, max, fmt='%.3e', delimiter='   ')
-
-
-def print_ripley_box(files,n,name):
-    if n==0:
-        out_name=name +'/ripley_box_radius.pdf'
-    elif n==1:
-        out_name=name +'/ripley_box_max.pdf'
-    plt.figure()
-    for i in range (0,len(files)):
-        x=read_locs(files[i])
-        #ripley=
-        plt.boxplot(ripley[:,n],0,'')
-        plt.hold()
-    plt.savefig(out_name, bbox_inches='tight')
-    plt.close()
-'''
 
 def create_cbc_roi(cnp.ndarray[double, ndim=2] locs, cnp.ndarray[double, ndim=2] roi, str dir_name, str name):
     '''
@@ -1038,64 +957,20 @@ def rest_from_file(list raw):
     '''
         Receives raw LAMA settings file and extracts information except roi information. Farmats them. Returns them.
     '''
-    cdef int i,j
+    cdef int i,j,length
+    cdef str first
     cdef cnp.ndarray rest_line
     cdef cnp.ndarray[double, ndim=2] rest_para
-    
-    rest_para=np.zeros([33,1])
+
+    rest_para=np.zeros([42,1])
+    length = np.shape(raw)[0]
     j=0
-    for i in range (0,3):
-        rest_line=np.array(raw[(11+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (3,6):
-        rest_line=np.array(raw[(16+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (6,9):
-        rest_line=np.array(raw[(20+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    rest_line=np.array(raw[(25)].split())
-    rest_para[9]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (10,13):
-        rest_line=np.array(raw[(27+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (13,16):
-        rest_line=np.array(raw[(31+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (16,19):
-        rest_line=np.array(raw[(35+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (19,24):
-        rest_line=np.array(raw[(39+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    rest_line=np.array(raw[(45)].split())
-    rest_para[24]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (25,28):
-        rest_line=np.array(raw[(47+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
-    rest_line=np.array(raw[(51)].split())
-    rest_para[28]=rest_line.astype(np.float, copy=False)
-    rest_line=np.array(raw[(54)].split())
-    rest_para[29]=rest_line.astype(np.float, copy=False)
-    j=0
-    for i in range (30,33):
-        rest_line=np.array(raw[(56+j)].split())
-        j+=1
-        rest_para[i]=rest_line.astype(np.float, copy=False)
+    for i in range (11,length):
+        rest_line=np.array(raw[i].split())
+        first = str(rest_line[0])
+        if first != '#':
+            rest_para[j]=rest_line.astype(np.float, copy=False)
+            j+=1
     return rest_para
     
 def read_import_file(str name):
@@ -1120,10 +995,12 @@ def write_settings(cnp.ndarray[double, ndim=2] settings, str dir_name):
         saves settings to a LAMA settings file.
     '''
     cdef str out_name
+    cdef int ver
     
+    ver=1510
     out_name=dir_name+'/settings.txt'
     out_file = open(out_name, "w")
-    out_file.write('# Settings file:\n')
+    out_file.write('# Settings file Lama v.%i format:\n' %(ver))
     out_file.write('# Main\n')
     out_file.write('# file name type:\n')
     out_file.write('%i\n' %(settings[0]))
@@ -1161,13 +1038,14 @@ def write_settings(cnp.ndarray[double, ndim=2] settings, str dir_name):
     out_file.write('%.3f\n' %(settings[27]))
     out_file.write('%.3f\n' %(settings[28]))
     out_file.write('%.3f\n' %(settings[29]))
-    out_file.write('# Register:\n')
+    out_file.write('# Register\n')
+    out_file.write('# Bead Detection:\n')
     out_file.write('%.3f\n' %(settings[30]))
     out_file.write('%.3f\n' %(settings[31]))
     out_file.write('%.3f\n' %(settings[32]))
     out_file.write('%.3f\n' %(settings[33]))
+    out_file.write('# Registeration:\n')
     out_file.write('%.3f\n' %(settings[34]))
-    out_file.write('# Registeration type:\n')
     out_file.write('%i\n' %(settings[35]))
     out_file.write('# CBC:\n')
     out_file.write('%.3f\n' %(settings[36]))
@@ -1176,12 +1054,22 @@ def write_settings(cnp.ndarray[double, ndim=2] settings, str dir_name):
     out_file.write('# CBC type:\n')
     out_file.write('%i\n' %(settings[39]))
     out_file.write('# Hirarchical Clustering:\n')
-    out_file.write('# Clustering type:\n')
+    out_file.write('# sort:\n')    
     out_file.write('%i\n' %(settings[40]))
-    out_file.write('# Hirarchical Clustering Parameters:\n')
     out_file.write('%.3f\n' %(settings[41]))
-    out_file.write('%i\n' %(settings[42]))
+    out_file.write('%.3f\n' %(settings[42]))
     out_file.write('%.3f\n' %(settings[43]))
+    out_file.write('# MCA:\n')
+    out_file.write('%i\n' %(settings[44]))
+    out_file.write('# Stoichiometry:\n')
+    out_file.write('%.3f\n' %(settings[45]))
+    out_file.write('%.3f\n' %(settings[46]))
+    out_file.write('%.3f\n' %(settings[47]))
+    out_file.write('%.3f\n' %(settings[48]))
+    out_file.write('%.3f\n' %(settings[49]))
+    out_file.write('%.3f\n' %(settings[50]))
+    out_file.write('%i\n' %(settings[51]))
+    out_file.write('%i\n' %(settings[52]))
     out_file.write('# go Lama!')
     out_file.close()
 
@@ -1366,6 +1254,150 @@ class hierarchical_cluster:
             else:
                 self.cluster[self.order[i]] = self.cnum
 
+
+# Class analyze hc_cluster
+class hcAnalysis:
+    def __init__(self, cnp.ndarray[double, ndim=2] hc_locs, double eps, int pmin):
+        cdef cnp.ndarray[double, ndim=2] cluster_ana
+        cdef int cnum
+        
+        self.hc_locs = hc_locs
+        self.cnum = np.max(self.hc_locs[:,3])
+        cluster_ana = np.zeros([self.cnum-1,5])
+        self.cluster_ana = cluster_ana
+        blinks = np.zeros([self.cnum-1,1])
+        self.blinks = blinks
+        self.eps = eps
+        self.pmin = pmin
+    
+    def count_blinks(self, locs):
+        
+        
+        length = np.shape(locs)[0]
+        n=0
+        for i in range (1,length):
+            if locs[i,2]>(locs[i-1,2]+1):
+                n+=1
+        return n
+    
+    def create_roi_hc(self, int cluster):
+        #cdef cnp.ndarray[int, ndim=1] index
+        cdef cnp.ndarray[double, ndim=2] locs1
+        
+        index = self.hc_locs[:,3] == cluster
+        locs1 = (self.hc_locs[index,:])
+        if np.shape(locs1)[0]>1:
+            locs1 = locs1[np.argsort(locs1[:,2]),:]
+            self.blinks[cluster-1] = self.count_blinks(locs1)
+        else:
+            self.blinks[cluster-1] = 1
+        return locs1
+
+    def ShoelaceArea(self, corners):
+        n = len(corners) # of corners
+        area = 0.0
+        for i in range(n):
+            j = (i + 1) % n
+            area += corners[i][0] * corners[j][1]
+            area -= corners[j][0] * corners[i][1]
+        area = abs(area) / 2.0
+        return area
+
+    def create_polygon_hc(self, locs):
+        
+        if np.shape(locs)[0]>3:
+            #get area
+            hull = sp.spatial.ConvexHull(locs)
+            shape=np.zeros([np.shape(hull.vertices)[0],2])
+            shape[:,0]=locs[hull.vertices,0]
+            shape[:,1]=locs[hull.vertices,1]
+            #get centroid
+            cx = np.mean(shape[:,0])
+            cy = np.mean(shape[:,1])
+            area = self.ShoelaceArea(shape)
+        else:
+            cx = np.mean(locs[:,0])
+            cy = np.mean(locs[:,1])
+            area = 0.0
+        #get radius
+        r=np.sqrt(area/np.pi)
+        #get intensity
+        l = np.shape(locs)[0]
+        return [cx,cy,area,r,l]
+
+    def analyze_hc_cluster(self):
+        '''analyze clusters from hierarcical clustering for ther center of mass, area, perimeter, and number of comprised localizations
+            import: localizations with cluster indices (hc_locs), number of clusters (cnum), and path name (dir_name)
+            no output
+        '''
+        cdef int i,j
+        cdef cnp.ndarray[double, ndim=2] cluster_locs
+        cdef str hd, outfilename
+
+        for i in range (0,self.cnum-1):
+            j=i+1
+            # sub list locs of a distinct cluster
+            cluster_locs = self.create_roi_hc(j)
+            # find edge localizations
+            self.cluster_ana[i,:] = self.create_polygon_hc(cluster_locs[:,0:2])
+
+# create Cluster images
+def make_hc_Images(cnp.ndarray[double, ndim=2] locs, cnp.ndarray[double, ndim=2] cluster_ana, int cnum, cnp.ndarray[double, ndim=2] roi, int pxl, int fixed_ind, int fix_val, str dir_name):
+    '''
+        receives localization list, roi parameters and desired pxl size from communication layer. computes a 2d-histogram. transform histogram information into 8-bit gray scale image. saves image. returns raw histogram containing absolute number of localizations per bin.
+    '''
+    cdef str outfilename
+    cdef cnp.ndarray[long, ndim=2] locs1
+    cdef cnp.ndarray[double, ndim=2] BW0, BW1
+    
+    outfilename=dir_name + '/roi_hc.png'
+    locs1=locs.astype(int)
+    BW0=np.histogram2d(locs1[:,0], locs1[:,1],bins=[(roi[0,1]-roi[0,0])/pxl,(roi[1,1]-roi[1,0])/pxl], range=[[roi[0,0],roi[0,1]],[roi[1,0],roi[1,1]]])[0]
+    BW0=np.rot90(BW0, k=1)
+    BW0=np.flipud(BW0)
+    BW1=BW0
+    if fixed_ind==1:
+        BW1=np.clip(BW1,0,fix_val)
+        BW1=(np.divide(BW1,fix_val)*255)
+    BW2 = Image.fromarray(np.uint8(BW1))
+    draw =ImageDraw.Draw(BW2)
+    for i in range (0,cnum-1):
+        x= np.divide(cluster_ana[i,0]-roi[0,0],pxl)
+        y= np.divide(cluster_ana[i,1]-roi[1,0],pxl)
+        r= np.divide(cluster_ana[i,3],pxl)
+        draw.ellipse((x-r,y-r,x+r,y+r), outline=255)
+        draw.point((x,y), fill=255)
+    BW2.save(outfilename)
+
+
+# make hc-color images
+def make_hc_color_Images(cnp.ndarray[double, ndim=2] locs, int cnum, cnp.ndarray[double, ndim=2] roi, int pxl, str dir_name):
+    '''
+        receives localization list, roi parameters and desired pxl size from communication layer. computes a 2d-histogram. transform histogram information into 8-bit gray scale image. saves image. returns raw histogram containing absolute number of localizations per bin.
+        '''
+    cdef int max
+    cdef str outfilename
+    cdef cnp.ndarray[double, ndim=1] Z
+    cdef cnp.ndarray[double, ndim=2] BW0, BW1, BW2
+    
+    outfilename=dir_name+'/roi_hc_color.png'
+    
+    max = np.int(np.ceil(np.divide(cnum,255)))
+    Z= np.ceil(np.divide(locs[:,3],max))
+    BW0=np.histogram2d(locs[:,0], locs[:,1],bins=[(roi[0,1]-roi[0,0])/pxl,(roi[1,1]-roi[1,0])/pxl], range=[[roi[0,0],roi[0,1]],[roi[1,0],roi[1,1]]])[0]
+    BW0=np.rot90(BW0, k=1)
+    BW0=np.flipud(BW0)
+    #BW0=np.clip(BW0,0,255)
+    #BW1=np.clip(BW0, 1, 255)
+    BW1=np.histogram2d(locs[:,0], locs[:,1],bins=[(roi[0,1]-roi[0,0])/pxl,(roi[1,1]-roi[1,0])/pxl], range=[[roi[0,0],roi[0,1]],[roi[1,0],roi[1,1]]],weights=Z)[0]
+    BW1=np.rot90(BW1, k=1)
+    BW1=np.flipud(BW1)
+    BW2=np.divide(BW1, BW0)
+    BW3 = Image.fromarray(np.uint8(BW2))
+    BW3.save(outfilename)
+
+
+# plot da stuff
 def plot_dbscan(cnp.ndarray[double, ndim=2] hc_locs, int cnum, str dir_name):
     cdef int Min_size, Max_size
     cdef cnp.ndarray[double, ndim=1] x,y
@@ -1427,3 +1459,155 @@ def plot_optics(cnp.ndarray[double, ndim=2] hc_locs, float noise_ind, str dir_na
     plt.close()
 
     return (new_eps)
+
+
+
+class condence_locs:
+    def __init__(self, locs, dir_name):
+        
+        self.locs = locs
+        self.dir_name = dir_name
+        self.append = '/condensed_locs_roi.txt'
+        self.condensed_locs = np.zeros([2,4])
+        self.cnum = int(np.max(self.locs[:,3]))
+    
+    def print_progress(self, progress):
+        
+        barLength = 10 # Modify this to change the length of the progress bar
+        block = int(round(barLength*progress))
+        text = "\rthe lama is condensing localizations: [{0}] {1}%".format( "#"*block + "-"*(barLength-block), int(progress*100)+1)
+        sys.stdout.write(text)
+        sys.stdout.flush()
+    
+    def count_blinks(self, cluster):
+        
+        
+        length = np.shape(cluster)[0]
+        blinks = np.zeros([length,1])
+        n=0
+        for i in range (1,length):
+            if cluster[i,2]!=(cluster[i-1,2]+1):
+                n+=1
+            blinks[i]=n
+        return blinks
+    
+    
+    def condense_cluster(self, cluster, blinks):
+        
+        nBlinks = int(np.max(blinks)+1)
+        cCluster = np.zeros([nBlinks,4])
+        for i in range (0,nBlinks):
+            idx = blinks[:,0]==i
+            length = np.shape(cluster[idx])[0]
+            cCluster[i,0] = np.sum(cluster[idx,0])/float(length)
+            cCluster[i,1] = np.sum(cluster[idx,1])/float(length)
+            cCluster[i,2] = np.min(cluster[idx,2])
+            cCluster[i,3] = cluster[0,3]
+        self.condensed_locs = np.append(self.condensed_locs, cCluster, axis=0)
+    
+    def sort_cluster(self):
+        
+        for i in range (1,self.cnum+1):
+            self.print_progress(i/self.cnum)
+            idx = self.locs[:,3]==i
+            cluster_locs = np.zeros([np.shape(self.locs[idx,:])[0],4])
+            cluster_locs = self.locs[idx,:]
+            cluster_locs = cluster_locs[np.argsort(cluster_locs[:,2]),:]
+            blinks = self.count_blinks(cluster_locs)
+            self.condense_cluster(cluster_locs, blinks)
+        self.print_progress(0.99)
+        print('\n')
+        self.condensed_locs = np.delete(self.condensed_locs,[0,1],axis=0)
+    
+    def save_cond_locs(self):
+        
+        hd = str('Condensed hc-file (LAMA format)\nnumber of cluster: %i\nx[nm]\ty[nm]\tt[frame]\cluster' %(self.cnum))
+        outfilename = self.dir_name + self.append
+        np.savetxt(outfilename, self.condensed_locs, fmt='%.5e', delimiter='   ', header = hd, comments ='# ')
+
+def saveRawCluster(cluster, dir_name):
+    
+    outfilename = dir_name + '/batch_CA.txt'
+    cnum = np.shape(cluster)[0]
+    hd=str('Cluster analysis LAMA format\nnumber of cluster: %i \nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(cnum))
+    np.savetxt(outfilename, cluster, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
+
+class SMCounting:
+    def __init__(self, cluster,cnum, roi, pType, p, dir_name):
+        self.cluster = cluster
+        self.roi = roi
+        self.dir_name = dir_name
+        self.pType = pType
+        self.p = p
+        self.n = 3.0
+        self.cnum = cnum
+        self.clustHist = np.zeros([int(self.roi[3,1]-self.roi[3,0]), 3])
+        self.clustHist[:,0] = np.arange(self.roi[3,0], self.roi[3,1], 1, dtype='int')
+    
+
+    def roi_cluster(self):
+        idX1=self.cluster[:,0]>=self.roi[0,0]
+        idX2=self.cluster[:,0]<=self.roi[0,1]
+        idY1=self.cluster[:,1]>=self.roi[1,0]
+        idY2=self.cluster[:,1]<=self.roi[1,1]
+        idR1=self.cluster[:,3]>=self.roi[2,0]
+        idR2=self.cluster[:,3]<=self.roi[2,1]
+        idI1=self.cluster[:,4]>=self.roi[3,0]
+        idI2=self.cluster[:,4]<=self.roi[3,1]
+        self.cluster = self.cluster[(idX1&idX2&idY1&idY2&idR1&idR2&idI1&idI2),:]
+        self.cnum = np.shape(self.cluster)[0]
+
+    def saveRoiCluster(self):
+        append = '/ROI_hc_cluster.txt'
+        hd = str('hc-roi-file (LAMA format)\nnumber of cluster: %i \nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(self.cnum))
+        outfilename = self.dir_name + append
+        np.savetxt(outfilename, self.cluster, fmt='%.5e', delimiter='   ', header = hd, comments ='# ')
+
+    def blinkHistogram(self):
+        #append = '/ROI_hc_histogram.txt'
+        self.clustHist[:,1] = np.histogram(self.cluster[:,4], bins=len(self.clustHist[:,0]), range=(self.roi[3,0],self.roi[3,1]), density=True)[0]
+        #hd = str('cluster intensity histogram (LAMA format)\nnumber of localizations/cluster\t relative fraquency [a.u.]')
+        #outfilename = self.dir_name + append
+        #np.savetxt(outfilename, self.clustHist, fmt='%.5e', delimiter='   ', header = hd, comments ='# ')
+    
+    def Nbinom(self, x, n, p):
+        numer = n+x-1
+        denom = n-1
+        y=(special.gamma(numer+1)/(special.gamma(numer-denom+1)*special.gamma(denom+1)))*(p**(n))*((1-p)**(x))
+        return y
+
+    def estimateNP(self, x,y,n_guess,p_guess):
+        p0=np.array([n_guess, p_guess])
+        popt, pcov = curve_fit(self.Nbinom, x, y, p0)
+        self.n = popt[0]
+        self.p = popt[1]
+
+    def estimateN(self, x,y,n_guess,p_guess):
+        f=lambda x,n: self.Nbinom(x,n,p_guess)
+        popt, pcov = curve_fit(f,x,y,n_guess)
+        self.n = popt[0]
+        self.p = p_guess
+
+    def fitNegBin(self):
+        append = '/ROI_hc_histogram.pdf'
+        if self.pType == 0:
+            self.estimateNP(self.clustHist[:,0], self.clustHist[:,1],self.n,self.p)
+        else:
+            self.estimateN(self.clustHist[:,0], self.clustHist[:,1],self.n,self.p)
+        self.clustHist[:,2]=self.Nbinom(self.clustHist[:,0], self.n, self.p)
+
+    def save_counting(self):
+        appendTXT = '/ROI_hc_histogram.txt'
+        hd = str('cluster intensity histogram (LAMA format)\nn= %.3f\tp= %.3f\nnumber of localizations/cluster\t relative fraquency [a.u.]\t fit[a.u.]'%(self.n, self.p))
+        outfilenameTXT = self.dir_name + appendTXT
+        np.savetxt(outfilenameTXT, self.clustHist, fmt='%.5e', delimiter='   ', header = hd, comments ='# ')
+        appendPDF = '/ROI_hc_histogram.pdf'
+        outfilenamePDF = self.dir_name + appendPDF
+        f, axarr = plt.subplots(1, sharex=False)
+        axarr.bar(self.clustHist[:,0], self.clustHist[:,1], color='gray', edgecolor='black',width=1, align='center')
+        axarr.plot(self.clustHist[:,0], self.clustHist[:,2], 'b')
+        axarr.set_xlim([self.roi[3,0]-1,self.roi[3,1]])
+        axarr.set_xlabel('cluster intensity [localizations]')
+        axarr.set_ylabel('frequency [a.u.]')
+        plt.savefig(outfilenamePDF, format='pdf')
+        plt.close()

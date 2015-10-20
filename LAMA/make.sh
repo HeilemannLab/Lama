@@ -23,5 +23,5 @@
 ### make file to build python extension modules, compile the program, and embed the python interpreter in order to build a standalone application
 
 python3.4 cythonize_lama.py build_ext --inplace
-python3.4 setup_freeze.py build --iconfile lama.icns --bundle_name Lama
-python3.4 setup_freeze.py bdist_mac
+#python3.4 setup_freeze.py build --iconfile lama.icns --bundle_name Lama
+#python3.4 setup_freeze.py bdist_mac

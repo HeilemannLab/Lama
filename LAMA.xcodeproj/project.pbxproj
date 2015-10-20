@@ -26,7 +26,7 @@
 		F882668B1B36E23600D23CC9 /* lama_app_source.pyx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lama_app_source.pyx; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.python; };
 		F882668C1B36E23600D23CC9 /* lama_communicate_source.pyx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lama_communicate_source.pyx; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.python; };
 		F882668D1B36E23600D23CC9 /* main.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = main.py; sourceTree = "<group>"; };
-		F882668E1B36E23600D23CC9 /* mainwindow.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = mainwindow.py; sourceTree = "<group>"; };
+		F882668E1B36E23600D23CC9 /* mainwindow.py */ = {isa = PBXFileReference; explicitFileType = text.script.python; fileEncoding = 4; path = mainwindow.py; sourceTree = "<group>"; };
 		F882668F1B36E23600D23CC9 /* mainwindow.ui */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mainwindow.ui; sourceTree = "<group>"; };
 		F88266901B36E23600D23CC9 /* make.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = make.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */

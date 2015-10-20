@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>343</width>
-    <height>560</height>
+    <height>581</height>
    </rect>
   </property>
   <property name="cursor">
@@ -18,6 +18,9 @@
   </property>
   <property name="windowTitle">
    <string>lama v 0.8</string>
+  </property>
+  <property name="whatsThis">
+   <string>Main Menue: Define path and your filtering parameters</string>
   </property>
   <property name="currentIndex">
    <number>0</number>
@@ -37,6 +40,9 @@
    <layout class="QGridLayout" name="gridLayout_9">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="toolTip">
+       <string/>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -47,8 +53,14 @@
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
          <widget class="QLineEdit" name="lineEdit_01">
+          <property name="acceptDrops">
+           <bool>false</bool>
+          </property>
+          <property name="toolTip">
+           <string>input path to localization file (string)</string>
+          </property>
           <property name="whatsThis">
-           <string/>
+           <string notr="true"/>
           </property>
           <property name="dragEnabled">
            <bool>true</bool>
@@ -57,6 +69,9 @@
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="pushButton_01">
+          <property name="toolTip">
+           <string>select localization file</string>
+          </property>
           <property name="text">
            <string>Browse</string>
           </property>
@@ -64,6 +79,9 @@
         </item>
         <item row="2" column="0">
          <widget class="QRadioButton" name="radioButton_01">
+          <property name="toolTip">
+           <string>run in single file mode</string>
+          </property>
           <property name="text">
            <string>single localization file</string>
           </property>
@@ -74,6 +92,9 @@
         </item>
         <item row="3" column="0">
          <widget class="QRadioButton" name="radioButton_02">
+          <property name="toolTip">
+           <string>run in batch mode</string>
+          </property>
           <property name="text">
            <string>multiple localization files</string>
           </property>
@@ -115,6 +136,9 @@
             <bold>false</bold>
            </font>
           </property>
+          <property name="toolTip">
+           <string>minimal spatial threshold in x (float)</string>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -125,6 +149,9 @@
         </item>
         <item row="1" column="2">
          <widget class="QLineEdit" name="lineEdit_03">
+          <property name="toolTip">
+           <string>maximal spatial threshold in x (float)</string>
+          </property>
           <property name="text">
            <string>25</string>
           </property>
@@ -142,6 +169,9 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="lineEdit_04">
+          <property name="toolTip">
+           <string>minimal spatial threshold in y (float)</string>
+          </property>
           <property name="text">
            <string>0</string>
           </property>
@@ -152,6 +182,9 @@
         </item>
         <item row="2" column="2">
          <widget class="QLineEdit" name="lineEdit_05">
+          <property name="toolTip">
+           <string>maximal spatial threshold in y (float)</string>
+          </property>
           <property name="text">
            <string>25</string>
           </property>
@@ -169,8 +202,11 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="lineEdit_06">
+          <property name="toolTip">
+           <string>minimal temporal threshold (int)</string>
+          </property>
           <property name="text">
-           <string>0</string>
+           <string>1</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -179,6 +215,9 @@
         </item>
         <item row="3" column="2">
          <widget class="QLineEdit" name="lineEdit_07">
+          <property name="toolTip">
+           <string>maximal temporal threshold (int)</string>
+          </property>
           <property name="text">
            <string>10000</string>
           </property>
@@ -196,8 +235,11 @@
         </item>
         <item row="4" column="1">
          <widget class="QLineEdit" name="lineEdit_08">
+          <property name="toolTip">
+           <string>minimal intensity threshold (int)</string>
+          </property>
           <property name="text">
-           <string>0</string>
+           <string>1</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -206,6 +248,9 @@
         </item>
         <item row="4" column="2">
          <widget class="QLineEdit" name="lineEdit_09">
+          <property name="toolTip">
+           <string>maximal intensity threshold (int)</string>
+          </property>
           <property name="text">
            <string>1000000</string>
           </property>
@@ -223,6 +268,9 @@
         </item>
         <item row="5" column="1">
          <widget class="QLineEdit" name="lineEdit_10">
+          <property name="toolTip">
+           <string>minimal colocalization threshold (float)</string>
+          </property>
           <property name="text">
            <string>-1</string>
           </property>
@@ -233,6 +281,9 @@
         </item>
         <item row="5" column="2">
          <widget class="QLineEdit" name="lineEdit_11">
+          <property name="toolTip">
+           <string>maximal colocalization threshold (float)</string>
+          </property>
           <property name="text">
            <string>1</string>
           </property>
@@ -257,6 +308,9 @@
         </item>
         <item row="1" column="0">
          <widget class="QLineEdit" name="lineEdit_12">
+          <property name="toolTip">
+           <string>conversion of intensity value to photons (float)</string>
+          </property>
           <property name="text">
            <string>3</string>
           </property>
@@ -274,6 +328,9 @@
         </item>
         <item row="3" column="0">
          <widget class="QLineEdit" name="lineEdit_13">
+          <property name="toolTip">
+           <string>width of the fluorescent probe's psf (float)</string>
+          </property>
           <property name="text">
            <string>250</string>
           </property>
@@ -291,6 +348,9 @@
         </item>
         <item row="5" column="0">
          <widget class="QLineEdit" name="lineEdit_14">
+          <property name="toolTip">
+           <string>integration time of a frame (float)</string>
+          </property>
           <property name="text">
            <string>0.05</string>
           </property>
@@ -310,7 +370,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>343</width>
+     <width>328</width>
      <height>245</height>
     </rect>
    </property>
@@ -337,6 +397,9 @@
         </item>
         <item row="0" column="1">
          <widget class="QLineEdit" name="lineEdit_15">
+          <property name="toolTip">
+           <string>pixel size of output images (int)</string>
+          </property>
           <property name="text">
            <string>25</string>
           </property>
@@ -347,6 +410,9 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="lineEdit_16">
+          <property name="toolTip">
+           <string>width of the Gaussian shaped convolution filter (float)</string>
+          </property>
           <property name="text">
            <string>10</string>
           </property>
@@ -357,6 +423,10 @@
         </item>
         <item row="2" column="0">
          <widget class="QCheckBox" name="checkBox_02">
+          <property name="toolTip">
+           <string>The image will have a defined maximum.
+The intensity of brighter pxl will be reduced to the maximum.</string>
+          </property>
           <property name="text">
            <string>Choose Maximum Manually</string>
           </property>
@@ -374,6 +444,9 @@
         </item>
         <item row="3" column="0" colspan="2">
          <widget class="QRadioButton" name="radioButton_03">
+          <property name="toolTip">
+           <string>The intensity of the output image will be coded by the number of localizations binned to a single pxl.</string>
+          </property>
           <property name="text">
            <string>Compute Intensity based Image</string>
           </property>
@@ -384,6 +457,9 @@
         </item>
         <item row="4" column="0">
          <widget class="QRadioButton" name="radioButton_04">
+          <property name="toolTip">
+           <string>The intensity of the output image will be coded by the mean colocalization value of all localizations binned to the pxl. Resultig in a colocalization map.</string>
+          </property>
           <property name="text">
            <string>Compute CBC based Image</string>
           </property>
@@ -391,6 +467,9 @@
         </item>
         <item row="1" column="0">
          <widget class="QCheckBox" name="checkBox_01">
+          <property name="toolTip">
+           <string>creates an image convolved with a Gaussian shaped filter</string>
+          </property>
           <property name="text">
            <string>Enable Convolution [nm]</string>
           </property>
@@ -405,6 +484,9 @@
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0" colspan="2">
          <widget class="QCheckBox" name="checkBox_03">
+          <property name="toolTip">
+           <string>Will additionally create an MCA-file comprising information of individual cluster. Cluster will be identified from cohesive regions from the images.</string>
+          </property>
           <property name="text">
            <string>Enable Morphological Cluster Analysis</string>
           </property>
@@ -419,6 +501,9 @@
         </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="lineEdit_18">
+          <property name="toolTip">
+           <string>Intensity threshold to create a binary image (int.</string>
+          </property>
           <property name="text">
            <string>1</string>
           </property>
@@ -436,6 +521,9 @@
         </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="lineEdit_19">
+          <property name="toolTip">
+           <string>minimum size threshold for filtering cluster by radius (int)</string>
+          </property>
           <property name="text">
            <string>1</string>
           </property>
@@ -453,6 +541,9 @@
         </item>
         <item row="3" column="1">
          <widget class="QLineEdit" name="lineEdit_20">
+          <property name="toolTip">
+           <string>maximum size threshold for filtering cluster by radius (int)</string>
+          </property>
           <property name="inputMask">
            <string/>
           </property>
@@ -470,6 +561,9 @@
     </item>
     <item row="1" column="0">
      <widget class="QPushButton" name="pushButton_02">
+      <property name="toolTip">
+       <string>calculates an image from the localization list</string>
+      </property>
       <property name="text">
        <string>Compute</string>
       </property>
@@ -483,7 +577,7 @@
      <x>0</x>
      <y>0</y>
      <width>343</width>
-     <height>245</height>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
@@ -515,6 +609,9 @@
       </item>
       <item row="1" column="0">
        <widget class="QLineEdit" name="lineEdit_21">
+        <property name="toolTip">
+         <string>original size of a pxl on the camera chip (float)</string>
+        </property>
         <property name="text">
          <string>160</string>
         </property>
@@ -532,6 +629,9 @@
       </item>
       <item row="3" column="0">
        <widget class="QLineEdit" name="lineEdit_22">
+        <property name="toolTip">
+         <string>maximum emission wavelength of the fluorescent probe (int)</string>
+        </property>
         <property name="text">
          <string>710</string>
         </property>
@@ -549,6 +649,9 @@
       </item>
       <item row="5" column="0">
        <widget class="QLineEdit" name="lineEdit_23">
+        <property name="toolTip">
+         <string>noise level of the optical setup (float)</string>
+        </property>
         <property name="text">
          <string>0.7</string>
         </property>
@@ -559,6 +662,9 @@
       </item>
       <item row="6" column="0">
        <widget class="QPushButton" name="pushButton_03">
+        <property name="toolTip">
+         <string>calculates the theoretical localization precision of each detected fluorescent probe individually </string>
+        </property>
         <property name="text">
          <string>Compute</string>
         </property>
@@ -573,6 +679,9 @@
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <widget class="QPushButton" name="pushButton_04">
+        <property name="toolTip">
+         <string>claculates an overall localization precision for the experiment based on inter-localization distances</string>
+        </property>
         <property name="text">
          <string>Compute NeNA</string>
         </property>
@@ -588,7 +697,7 @@
      <x>0</x>
      <y>0</y>
      <width>343</width>
-     <height>245</height>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
@@ -600,7 +709,7 @@
       <x>10</x>
       <y>0</y>
       <width>321</width>
-      <height>271</height>
+      <height>231</height>
      </rect>
     </property>
     <property name="title">
@@ -616,6 +725,9 @@
      </item>
      <item row="1" column="0">
       <widget class="QLineEdit" name="lineEdit_24">
+       <property name="toolTip">
+        <string>edge length of a square roi (float)</string>
+       </property>
        <property name="inputMask">
         <string/>
        </property>
@@ -636,6 +748,9 @@
      </item>
      <item row="3" column="0">
       <widget class="QLineEdit" name="lineEdit_25">
+       <property name="toolTip">
+        <string>Observation radius of Ripley's k-function (float)</string>
+       </property>
        <property name="text">
         <string>1.0</string>
        </property>
@@ -653,6 +768,9 @@
      </item>
      <item row="5" column="0">
       <widget class="QLineEdit" name="lineEdit_26">
+       <property name="toolTip">
+        <string>Number of observation distance increments for which Ripley's k-function should be calculated for (int)</string>
+       </property>
        <property name="text">
         <string>100</string>
        </property>
@@ -663,6 +781,9 @@
      </item>
      <item row="6" column="0">
       <widget class="QPushButton" name="pushButton_05">
+       <property name="toolTip">
+        <string>run Ripley's k-function analysis</string>
+       </property>
        <property name="text">
         <string>Compute</string>
        </property>
@@ -676,16 +797,19 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>328</width>
-     <height>259</height>
+     <width>343</width>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
     <string>Register</string>
    </attribute>
    <layout class="QGridLayout" name="gridLayout_10">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget_3">
+      <property name="toolTip">
+       <string/>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -693,128 +817,185 @@
        <attribute name="title">
         <string>Bead Detection</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_24">
-          <property name="text">
-           <string>Minimal FAS Radius [nm]</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit_28">
-          <property name="text">
-           <string>50</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_25">
-          <property name="text">
-           <string>Maximal FAS Radius [nm]</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_29">
-          <property name="text">
-           <string>100</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_26">
-          <property name="text">
-           <string>Radius of Observation [nm]</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEdit_30">
-          <property name="text">
-           <string>200</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_27">
-          <property name="text">
-           <string>Relative on-Time [%]</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="lineEdit_31">
-          <property name="inputMask">
-           <string/>
-          </property>
-          <property name="text">
-           <string>80.0</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_30">
-          <property name="text">
-           <string>Maximal Displacement [nm]</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="lineEdit_32">
-          <property name="text">
-           <string>500</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>311</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_11">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_26">
+           <property name="text">
+            <string>min</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_33">
+           <property name="text">
+            <string>max</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>Radius [nm]</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_28">
+           <property name="toolTip">
+            <string>minimal radius for a bead (float)</string>
+           </property>
+           <property name="text">
+            <string>50</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLineEdit" name="lineEdit_29">
+           <property name="toolTip">
+            <string>maximal radius for a bead (float)</string>
+           </property>
+           <property name="text">
+            <string>100</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_27">
+           <property name="text">
+            <string>On-Time [%]</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit_30">
+           <property name="toolTip">
+            <string>minimal intensity of the cluster to be identified as a bead (int)</string>
+           </property>
+           <property name="inputMask">
+            <string/>
+           </property>
+           <property name="text">
+            <string>100</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="lineEdit_31">
+           <property name="toolTip">
+            <string>maximal intensity of the cluster to be identified as a bead (int)</string>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>10000</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="3">
+          <widget class="QPushButton" name="pushButton_06">
+           <property name="toolTip">
+            <string>filter mca file for cluster to be identified as a bead</string>
+           </property>
+           <property name="text">
+            <string>Compute</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
         <string>Registration</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_12">
-        <item row="0" column="0">
-         <widget class="QRadioButton" name="radioButton_05">
-          <property name="text">
-           <string>Affine Registration</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QRadioButton" name="radioButton_06">
-          <property name="text">
-           <string>Linear Registration</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>315</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_12">
+         <item row="0" column="0">
+          <widget class="QRadioButton" name="radioButton_05">
+           <property name="toolTip">
+            <string>choose to register by an affine matrix (needs at least 3 beads)</string>
+           </property>
+           <property name="text">
+            <string>Affine Registration</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QRadioButton" name="radioButton_06">
+           <property name="toolTip">
+            <string>choose to register by a linear matrix</string>
+           </property>
+           <property name="text">
+            <string>Linear Registration</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_30">
+           <property name="text">
+            <string>max Displacement [nm]</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEdit_32">
+           <property name="toolTip">
+            <string>estimated guess for the maximal displacement between the two channels</string>
+           </property>
+           <property name="text">
+            <string>500</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <widget class="QPushButton" name="pushButton_07">
+           <property name="toolTip">
+            <string>register a localization file onto another</string>
+           </property>
+           <property name="text">
+            <string>Compute</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_06">
-      <property name="text">
-       <string>Compute</string>
-      </property>
      </widget>
     </item>
    </layout>
@@ -825,7 +1006,7 @@
      <x>0</x>
      <y>0</y>
      <width>343</width>
-     <height>245</height>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
@@ -847,6 +1028,9 @@
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="lineEdit_33">
+         <property name="toolTip">
+          <string>maximal distance to calculate a fluorescent probe distribution for</string>
+         </property>
          <property name="text">
           <string>250</string>
          </property>
@@ -864,6 +1048,9 @@
        </item>
        <item row="1" column="1">
         <widget class="QLineEdit" name="lineEdit_34">
+         <property name="toolTip">
+          <string>number of steps to calculate the colocalization for</string>
+         </property>
          <property name="text">
           <string>25</string>
          </property>
@@ -881,6 +1068,9 @@
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="lineEdit_35">
+         <property name="toolTip">
+          <string>weighting factor (&lt;1 more weight on the fluorescent probe distribution; &gt;1 more weight on the distance to the nearest neighbor)</string>
+         </property>
          <property name="text">
           <string>1.0</string>
          </property>
@@ -891,6 +1081,9 @@
        </item>
        <item row="3" column="0">
         <widget class="QRadioButton" name="radioButton_07">
+         <property name="toolTip">
+          <string>choose to run a true colocalization analysis of two channels</string>
+         </property>
          <property name="text">
           <string>Colocalization</string>
          </property>
@@ -901,13 +1094,19 @@
        </item>
        <item row="4" column="0" colspan="2">
         <widget class="QRadioButton" name="radioButton_08">
+         <property name="toolTip">
+          <string>choose to run a cluster analysis. Channel is split into two and both are colocalized. Result is a CBC value coding for the degree of clustering.</string>
+         </property>
          <property name="text">
           <string>Cluster Analysis</string>
          </property>
         </widget>
        </item>
        <item row="5" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_07">
+        <widget class="QPushButton" name="pushButton_08">
+         <property name="toolTip">
+          <string>run CBC analysis</string>
+         </property>
          <property name="text">
           <string>Compute</string>
          </property>
@@ -924,52 +1123,231 @@
      <x>0</x>
      <y>0</y>
      <width>343</width>
-     <height>245</height>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
     <string>Hierarchical Clustering</string>
    </attribute>
-   <widget class="QGroupBox" name="groupBox_3">
+   <widget class="QTabWidget" name="tab_hc">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
       <width>321</width>
-      <height>201</height>
+      <height>241</height>
      </rect>
     </property>
-    <property name="title">
-     <string/>
+    <property name="currentIndex">
+     <number>0</number>
     </property>
-    <layout class="QGridLayout" name="gridLayout_14">
-     <item row="0" column="0">
-      <widget class="QRadioButton" name="radioButton_09">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
+    <widget class="QWidget" name="widget">
+     <attribute name="title">
+      <string>sort</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout_14">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="lineEdit_37">
+        <property name="toolTip">
+         <string>Minimal number of neighbors to define a clustered localization (DBSCAN only, int)</string>
+        </property>
+        <property name="text">
+         <string>5</string>
+        </property>
+        <property name="cursorPosition">
+         <number>1</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QPushButton" name="pushButton_09">
+        <property name="toolTip">
+         <string>sort localizations into clusters by hierarchical clustering</string>
+        </property>
+        <property name="text">
+         <string>Compute</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioButton_09">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>choose to sort localizations into clusters by DBSCAN algorithm</string>
+        </property>
+        <property name="text">
+         <string>DBSCAN</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_31">
+        <property name="text">
+         <string>Minimal Cluster Size</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_29">
+        <property name="text">
+         <string>Observation Radius [nm]</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEdit_36">
+        <property name="toolTip">
+         <string>maximal radius to search for neighbors</string>
+        </property>
+        <property name="text">
+         <string>25</string>
+        </property>
+        <property name="cursorPosition">
+         <number>1</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QRadioButton" name="radioButton_10">
+        <property name="toolTip">
+         <string>choose to sort localizations into clusters by OPTICS algorithm</string>
+        </property>
+        <property name="text">
+         <string>OPTICS</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_32">
+        <property name="text">
+         <string>Noise Level [%]</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="lineEdit_38">
+        <property name="toolTip">
+         <string>fraction of localizations to define as noise (OPTICS only, float)</string>
+        </property>
+        <property name="text">
+         <string>10.0</string>
+        </property>
+        <property name="cursorPosition">
+         <number>1</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="tab_8">
+     <attribute name="title">
+      <string>MCA</string>
+     </attribute>
+     <layout class="QGridLayout" name="gridLayout_16">
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton_10">
+        <property name="toolTip">
+         <string>run a coordinate based version of the MCA</string>
+        </property>
+        <property name="text">
+         <string>compute</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkBox_04">
+        <property name="toolTip">
+         <string>condense localizations detected in multiple adjacent frames to their center of mass</string>
+        </property>
+        <property name="text">
+         <string>condense localization list before analysis</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="page_4">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>343</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <attribute name="label">
+    <string>Stoichiometry</string>
+   </attribute>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>341</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_18">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_25">
        <property name="text">
-        <string>DBSCAN</string>
+        <string>min</string>
        </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_34">
+       <property name="text">
+        <string>max</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_29">
+      <widget class="QLabel" name="label_35">
        <property name="text">
-        <string>Observation Radius [nm]</string>
+        <string>r [nm]</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_36">
+      <widget class="QLineEdit" name="lineEdit_39">
+       <property name="toolTip">
+        <string>minimal filter for cluster radii (float)</string>
+       </property>
        <property name="text">
-        <string>25</string>
+        <string>0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="lineEdit_40">
+       <property name="toolTip">
+        <string>maximal filter for cluster radii (float)</string>
+       </property>
+       <property name="text">
+        <string>100</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -977,50 +1355,98 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_31">
+      <widget class="QLabel" name="label_36">
        <property name="text">
-        <string>Minimal Cluster Size</string>
+        <string>I [a.u.]</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_37">
+      <widget class="QLineEdit" name="lineEdit_41">
+       <property name="toolTip">
+        <string>minimal filter for cluster intensity (int)</string>
+       </property>
        <property name="text">
-        <string>5</string>
+        <string>0</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QRadioButton" name="radioButton_10">
-       <property name="text">
-        <string>OPTICS</string>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="lineEdit_42">
+       <property name="toolTip">
+        <string>maximal filter for cluster intensity (int)</string>
        </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_32">
        <property name="text">
-        <string>Noise Level [%]</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_38">
-       <property name="text">
-        <string>10.0</string>
+        <string>30</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" rowspan="2" colspan="3">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_06">
+       <property name="toolTip">
+        <string>analyze the blinking probability with fixed value for n</string>
+       </property>
+       <property name="text">
+        <string>fix stoichiometry n</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="QLineEdit" name="lineEdit_44">
+       <property name="toolTip">
+        <string>set an estimated guess for the stoiciometry (float)</string>
+       </property>
+       <property name="text">
+        <string>1.0</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0" colspan="3">
+      <widget class="QPushButton" name="pushButton_11">
+       <property name="toolTip">
+        <string>estimate copy numbers of fluorescent probes from an MCA-file</string>
+       </property>
+       <property name="text">
+        <string>Compute</string>
        </property>
       </widget>
      </item>
      <item row="5" column="0" colspan="2">
-      <widget class="QPushButton" name="pushButton_12">
+      <widget class="QCheckBox" name="checkBox_05">
+       <property name="toolTip">
+        <string>analyze the stoiciometry with fixed value for p</string>
+       </property>
        <property name="text">
-        <string>Compute</string>
+        <string>fix blinking probability p</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QLineEdit" name="lineEdit_43">
+       <property name="toolTip">
+        <string>set an estimated guess for the blinking probability (float)</string>
+       </property>
+       <property name="text">
+        <string>0.3</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -1033,13 +1459,13 @@
      <x>0</x>
      <y>0</y>
      <width>343</width>
-     <height>245</height>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
     <string>Settings</string>
    </attribute>
-   <widget class="QTabWidget" name="tabWidget_5">
+   <widget class="QTabWidget" name="tabWidget_15">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -1057,17 +1483,30 @@
      </attribute>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <widget class="QLineEdit" name="lineEdit_39"/>
+       <widget class="QLineEdit" name="lineEdit_45">
+        <property name="acceptDrops">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>path to settings file</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_08">
+       <widget class="QPushButton" name="pushButton_12">
+        <property name="toolTip">
+         <string>serach for settings file</string>
+        </property>
         <property name="text">
          <string>Browse</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_09">
+       <widget class="QPushButton" name="pushButton_13">
+        <property name="toolTip">
+         <string>import settings from file</string>
+        </property>
         <property name="text">
          <string>Import</string>
         </property>
@@ -1081,17 +1520,27 @@
      </attribute>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QLineEdit" name="lineEdit_40"/>
+       <widget class="QLineEdit" name="lineEdit_46">
+        <property name="toolTip">
+         <string>path to settings folder</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_10">
+       <widget class="QPushButton" name="pushButton_14">
+        <property name="toolTip">
+         <string>search for settings folder</string>
+        </property>
         <property name="text">
          <string>Browse</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="pushButton_15">
+        <property name="toolTip">
+         <string>export settings to file</string>
+        </property>
         <property name="text">
          <string>Export</string>
         </property>
@@ -1107,7 +1556,7 @@
      <x>0</x>
      <y>0</y>
      <width>343</width>
-     <height>245</height>
+     <height>231</height>
     </rect>
    </property>
    <attribute name="label">
@@ -1163,6 +1612,90 @@ p, li { white-space: pre-wrap; }
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>lineEdit_01</tabstop>
+  <tabstop>pushButton_01</tabstop>
+  <tabstop>radioButton_01</tabstop>
+  <tabstop>radioButton_02</tabstop>
+  <tabstop>lineEdit_02</tabstop>
+  <tabstop>lineEdit_03</tabstop>
+  <tabstop>lineEdit_04</tabstop>
+  <tabstop>lineEdit_05</tabstop>
+  <tabstop>lineEdit_06</tabstop>
+  <tabstop>lineEdit_07</tabstop>
+  <tabstop>lineEdit_08</tabstop>
+  <tabstop>lineEdit_09</tabstop>
+  <tabstop>lineEdit_10</tabstop>
+  <tabstop>lineEdit_11</tabstop>
+  <tabstop>lineEdit_12</tabstop>
+  <tabstop>lineEdit_13</tabstop>
+  <tabstop>lineEdit_14</tabstop>
+  <tabstop>tabWidget_6</tabstop>
+  <tabstop>lineEdit_15</tabstop>
+  <tabstop>lineEdit_16</tabstop>
+  <tabstop>lineEdit_17</tabstop>
+  <tabstop>checkBox_01</tabstop>
+  <tabstop>checkBox_02</tabstop>
+  <tabstop>radioButton_03</tabstop>
+  <tabstop>radioButton_04</tabstop>
+  <tabstop>pushButton_02</tabstop>
+  <tabstop>checkBox_03</tabstop>
+  <tabstop>lineEdit_18</tabstop>
+  <tabstop>lineEdit_19</tabstop>
+  <tabstop>lineEdit_20</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>lineEdit_21</tabstop>
+  <tabstop>lineEdit_22</tabstop>
+  <tabstop>lineEdit_23</tabstop>
+  <tabstop>pushButton_03</tabstop>
+  <tabstop>pushButton_04</tabstop>
+  <tabstop>lineEdit_24</tabstop>
+  <tabstop>lineEdit_25</tabstop>
+  <tabstop>lineEdit_26</tabstop>
+  <tabstop>pushButton_05</tabstop>
+  <tabstop>tabWidget_3</tabstop>
+  <tabstop>lineEdit_28</tabstop>
+  <tabstop>lineEdit_29</tabstop>
+  <tabstop>lineEdit_30</tabstop>
+  <tabstop>lineEdit_31</tabstop>
+  <tabstop>pushButton_06</tabstop>
+  <tabstop>radioButton_05</tabstop>
+  <tabstop>radioButton_06</tabstop>
+  <tabstop>lineEdit_32</tabstop>
+  <tabstop>pushButton_07</tabstop>
+  <tabstop>lineEdit_33</tabstop>
+  <tabstop>lineEdit_34</tabstop>
+  <tabstop>lineEdit_35</tabstop>
+  <tabstop>radioButton_07</tabstop>
+  <tabstop>radioButton_08</tabstop>
+  <tabstop>pushButton_08</tabstop>
+  <tabstop>tab_hc</tabstop>
+  <tabstop>radioButton_09</tabstop>
+  <tabstop>radioButton_10</tabstop>
+  <tabstop>lineEdit_36</tabstop>
+  <tabstop>lineEdit_37</tabstop>
+  <tabstop>lineEdit_38</tabstop>
+  <tabstop>pushButton_09</tabstop>
+  <tabstop>checkBox_04</tabstop>
+  <tabstop>pushButton_10</tabstop>
+  <tabstop>lineEdit_39</tabstop>
+  <tabstop>lineEdit_40</tabstop>
+  <tabstop>lineEdit_41</tabstop>
+  <tabstop>lineEdit_42</tabstop>
+  <tabstop>checkBox_05</tabstop>
+  <tabstop>lineEdit_43</tabstop>
+  <tabstop>checkBox_06</tabstop>
+  <tabstop>lineEdit_44</tabstop>
+  <tabstop>pushButton_11</tabstop>
+  <tabstop>tabWidget_15</tabstop>
+  <tabstop>lineEdit_45</tabstop>
+  <tabstop>pushButton_12</tabstop>
+  <tabstop>pushButton_13</tabstop>
+  <tabstop>lineEdit_46</tabstop>
+  <tabstop>pushButton_14</tabstop>
+  <tabstop>pushButton_15</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

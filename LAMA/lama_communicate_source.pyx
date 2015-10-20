@@ -18,29 +18,6 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-##use like:
-'''
-   hc=la.hierarchical_cluster(roi_locs,eps,pmin,dim)
-    hc.OPTICS()
-    #write new_eps to file
-    hc_locs = np.zeros([np.shape(hc.order)[0],4])
-    hc_locs[:,0:1] = hc.locs[:,0:1]
-    hc_locs[:,2] = hc.order
-    hc_locs[:,3] = hc.reachDist
-    outfilename_01 = dir_name + '/OPTICS.txt'
-    hd_01 = 'DBSCAN (LAMA format)\npmin=%i\nx[nm]\ty[nm]\tt[frame]\torder[a.u.]\treach distance[nm]' %(int(hc.pmin))
-    np.savetxt(outfilename_01, hc_locs, fmt='%.5e', delimiter='   ', header = hd_01, comments='# ')
-    #plot to extract eps
-    new_eps = la.plot_optics(hc_locs, noise_ind, dir_name)
-    hc.eps = new_eps
-    hc.extract_DBSCAN()
-    DB_locs = hc.locs
-    DB_locs[:,3] = hc.cluster
-    outfilename_02 = dir_name + '/OPTICS_DBSCAN.txt'
-    hd_02 = 'DBSCAN (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tt[frame]\tcluster' %(float(hc.eps), int(hc.pmin), int(hc.cnum))
-    np.savetxt(outfilename_02, DB_locs, fmt='%.5e', delimiter='   ', header = hd_02, comments='# ')
-    la.plot_dbscan(DB_locs,hc.cnum,dir_name)
-'''
 
 cimport numpy as cnp
 import numpy as np
@@ -136,40 +113,47 @@ def calc_ripley(str file, cnp.ndarray[double, ndim=2] rois, float edge, float ra
         roi_box=la.RipleysEdge(roi_locs,edge,roi_dir_name)
         la.RipleysK(roi_locs,roi_box,inc_num,radius,edge,roi_dir_name)
 
-def calc_registration(list files, cnp.ndarray[double, ndim=2] roi, int pxl, int fixed_ind, int fix_val, int r_min, int r_max, int r, float n, int d, int reg_ind, str append):
+def callBeadDetection(list files, cnp.ndarray[double, ndim=2] roi, int r_min, int r_max, int on_min, int on_max):
+    '''
+        Input Data: Cluster MCA Format
+        Sort for roi (spatial)
+        Sort for Beads
+        Returns Bead Data MCA Format
+    '''
+    cdef str dir_name, append
+    cdef int i
+    cdef cnp.ndarray[double, ndim=2] fas
+
+    append = str('_roi.txt')
+    for i in range (0, len(files)):
+        fas=la.read_locs(files[i])
+        file_name=files[i][0:(len(files[i])-4)]+append
+        fas=la.createRoiBead(fas,roi,r_min, r_max, on_min, on_max, file_name)
+
+
+def calc_registration(list files, int disp, int reg_ind):
     '''
         receives necessary parameters from communication layer and calls algorithms to compute fiducial marker based coordinate registration. Loads locs, filters locs by given roi parameters, calculates an image of the roi, detects fiducial markers, repeats routine for 2nd channel, links fiducial markers detected in both images. If more than two fiducial marker pairs could be linked calls registration by affine matrix. Else it calls registration by linear registration.
     '''
     cdef str dir_name
     cdef int i
-    cdef cnp.ndarray[double, ndim=2] locs_temp, BW0, buds_temp, sort_buds_temp, locs, BW1, buds, sort_buds, fids01, fids02
+    cdef cnp.ndarray[double, ndim=2] locs_temp, buds_temp, sort_buds_temp, locs, BW1, buds, sort_buds, fids01, fids02
     
-    dir_name=la.make_dir(files[0][0:(len(files[0])-4)],append)
-    locs_temp=la.read_locs_rs(files[0])
-    locs_temp=la.create_roi(locs_temp,roi,dir_name)
-    locs_temp = np.insert(locs_temp,0, 0, axis=0)
-    BW0=la.make_Image(locs_temp,roi,pxl,fixed_ind,fix_val,dir_name)
-    buds_temp=la.bud_locs(BW0,r_min,r_max,r,pxl,dir_name)
-    sort_buds_temp=la.detect_beads(locs_temp,buds_temp,r,n)
-    la.draw_roi(BW0,sort_buds_temp,r,pxl,dir_name)
-    for i in range (1,len(files)):
-        dir_name=la.make_dir(files[i][0:(len(files[i])-4)],append)
-        locs=la.read_locs_rs(files[i])
-        locs=la.create_roi(locs,roi,dir_name)
-        locs = np.insert(locs,0, 0, axis=0)
-        BW1=la.make_Image(locs,roi,pxl,fixed_ind,fix_val,dir_name)
-        buds=la.bud_locs(BW1,r_min,r_max,r,pxl,dir_name)
-        sort_buds=la.detect_beads(locs,buds,r,n)
-        la.draw_roi(BW1,sort_buds,r,pxl,dir_name)
-        fids01,fids02=la.link_fuducials(sort_buds_temp,sort_buds,d)
-        la.write_sort_beads(fids01,fids02,files[0],files[i])
-        la.plot_buds(fids01,fids02,dir_name)
+    for i in range (0,len(files),3):
+        fids01 = la.read_locs(files[i])
+        fids02 = la.read_locs(files[i+1])
+        fids01,fids02=la.link_fuducials(fids01,fids02,disp)
+        la.write_sort_beads(fids01,fids02,files[i],files[i+1])
+        la.plot_buds(fids01,fids02,files[i])
+        locs=la.read_locs_rs(files[i+2])
         if reg_ind==1:
             print('the lama is calculating an affine registration')
-            la.register_channels(locs,fids02,fids01,dir_name)
+            la.register_channels(locs,fids02,fids01,files[i+2])
         else:
             print('the lama is calculating a linear registration')
-            la.register_channels_trans(locs,fids02,fids01,dir_name)
+            la.register_channels_trans(locs,fids02,fids01,files[i+2])
+
+
 
 def cbc_coloc(str file_A, str file_B, cnp.ndarray[double, ndim=2] roi, int r_max, int inc_num, float wf, str append):
     '''
@@ -213,13 +197,13 @@ def cbc_cluster(str file, cnp.ndarray roi, int r_max, int inc_num, float wf, str
     name_cbc='/cluster_CBC.txt'
     la.create_cbc_roi(cbc_locs,roi,dir_name,name_cbc)
 
-def DBSCAN_based_clustering(str file, cnp.ndarray roi, float eps, int pmin, str append):
+def DBSCAN_based_clustering(str file, cnp.ndarray[double, ndim=2] roi, float eps, int pmin, int pxl, str append):
     '''
         receives necessary parameters from gui layer and calls algorithms to compute a hierarchical clustering for a single channel. Loads localizations, filters localizations spatially and chronologically by given roi parameters. Calculates DBSCAN for roi. Saves ROI with clustering parameters in 2nd line. 0 characterizes noise.
     '''
     cdef str dir_name, hd, outfilename
-    cdef int dim
-    cdef cnp.ndarray[double, ndim=2] locs, roi_locs,
+    cdef int dim, cnum
+    cdef cnp.ndarray[double, ndim=2] locs, roi_locs, cluster_ana
     
     dim = 2
     dir_name=la.make_dir(file[0:(len(file)-4)],append)
@@ -229,13 +213,16 @@ def DBSCAN_based_clustering(str file, cnp.ndarray roi, float eps, int pmin, str 
     hc.DBSCAN()
     hc_locs = hc.locs
     hc_locs[:,3] = hc.cluster
-    outfilename = dir_name + '/DBSCAN.txt'
-    hd = 'DBSCAN (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tt[frame]\tcluster' %(float(hc.eps), int(hc.pmin), int(hc.cnum))
-    np.savetxt(outfilename, hc_locs, fmt='%.5e', delimiter='   ', header = hd, comments='# ')
+    outfilename_01 = dir_name + '/DBSCAN.txt'
+    hd_01 = 'DBSCAN (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tt[frame]\tcluster' %(float(hc.eps), int(hc.pmin), int(hc.cnum-1))
+    np.savetxt(outfilename_01, hc_locs, fmt='%.5e', delimiter='   ', header = hd_01, comments='# ')
+    #plot pdf with cluster histogram
     la.plot_dbscan(hc_locs,hc.cnum,dir_name)
+    
 
 
-def OPTICS_based_clustering(str file, cnp.ndarray roi, float eps, float noise_ind, int pmin, str append):
+
+def OPTICS_based_clustering(str file, cnp.ndarray roi, float eps, float noise_ind, int pmin, int pxl, str append):
     '''
         receives necessary parameters from gui layer and calls algorithms to compute a hierarchical clustering for a single channel. Loads localizations, filters localizations spatially and chronologically by given roi parameters. Calculates DBSCAN for roi. Saves ROI with clustering parameters in 2nd line. 0 characterizes noise.
         '''
@@ -265,10 +252,61 @@ def OPTICS_based_clustering(str file, cnp.ndarray roi, float eps, float noise_in
     DB_locs = hc.locs
     DB_locs[:,3] = hc.cluster
     outfilename_02 = dir_name + '/OPTICS_DBSCAN.txt'
-    hd_02 = 'DBSCAN (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tt[frame]\tcluster' %(float(hc.eps), int(hc.pmin), int(hc.cnum))
+    hd_02 = 'DBSCAN (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tt[frame]\tcluster' %(float(hc.eps), int(hc.pmin), int(hc.cnum-1))
     np.savetxt(outfilename_02, DB_locs, fmt='%.5e', delimiter='   ', header = hd_02, comments='# ')
-    la.plot_dbscan(DB_locs,hc.cnum,dir_name)
     #plot pdf with cluster histogram
+    la.plot_dbscan(DB_locs,hc.cnum,dir_name)
+
+def hierarchical_cluster_Analysis(file, roi, pxl, eps, pmin, cond, append, hcaType):
+    
+    locs=la.read_locs_rs(file)
+    dir_name=la.make_dir(file[0:(len(file)-4)],append)
+    roi_locs=la.create_roi(locs,roi,dir_name)
+    #analyze hc_locs
+    hc_ana=la.hcAnalysis(roi_locs, eps, pmin)
+    hc_ana.analyze_hc_cluster()
+    # extract cluster
+    cluster_ana = hc_ana.cluster_ana
+    # condense locs
+    if cond==1:
+        cluster_ana[:,4] = hc_ana.blinks[:,0]
+    # save cluster
+    outfilename = dir_name + hcaType
+    hd=str('hierarchical cluster analysis (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(float(eps), int(pmin), int(hc_ana.cnum-1)))
+    np.savetxt(outfilename, cluster_ana, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
+    # plot cluster
+    fixed_ind = 1
+    fix_val = 255
+    la.make_hc_Images(roi_locs, cluster_ana, hc_ana.cnum, roi, pxl, fixed_ind, fix_val, dir_name)
+    la.make_hc_color_Images(roi_locs, hc_ana.cnum, roi, pxl, dir_name)
+
+
+def count_emitters(filename, files, roi, rMin, rMax, iMin, iMax, pType, p, eps, pmin, append):
+    cluster = np.zeros([2,5])
+    for i in range (0,len(files)):
+        cluster=np.append(cluster, la.read_locs(files[i]), axis=0)
+    cluster = np.delete(cluster, [0,1], 0)
+    # create directory
+    dir_name=la.make_dir(filename[0:(len(filename)-4)],append)
+    #save raw batch
+    la.saveRawCluster(cluster, dir_name)
+    #analyze Cluster by SMCounting
+    #roi = np.dot(args.roi,1000)
+    #roi = np.append(roi, [[args.Rmin,args.Rmax],[args.Imin,args.Imax]], axis=0)
+    #print (roi)
+    roi[2,:] = [rMin,rMax]
+    roi[3,:] = [iMin,iMax]
+    #print (roi)
+    #create cluster counter
+    cnum = np.shape(cluster)[0]
+    smcount = la.SMCounting(cluster,cnum, roi, pType, p, dir_name)
+    smcount.roi_cluster()
+    smcount.saveRoiCluster()
+    #create histogram
+    smcount.blinkHistogram()
+    smcount.fitNegBin()
+    smcount.save_counting()
+
 
 def load_settings(str name):
     '''
@@ -279,7 +317,7 @@ def load_settings(str name):
     
     name=name.rstrip('\n')
     print ('the lama is pronking through '+ name)
-    settings=np.zeros([44,1])
+    settings=np.zeros([53,1])
     data_type,roi,rest_para=la.read_import_file(name)
     settings[0]=data_type
     settings[1:11]=np.array([[roi[0,0]],[roi[0,1]],
