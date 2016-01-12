@@ -21,7 +21,7 @@
 cimport numpy as cnp
 import numpy as np
 import scipy as sp
-import pylab as pl
+#import pylab as pl
 import os
 import math
 import sys
@@ -187,7 +187,7 @@ def make_Image(cnp.ndarray[double, ndim=2] locs, cnp.ndarray[double, ndim=2] roi
     
 def convolve_image(cnp.ndarray[double, ndim=2] BW0, float sigma, int fixed_ind, int fix_val, str name):
     '''
-        receives super resolved image and localization accuracy from communication layer. Computes a convolution by Gaussian low pass filtering with a Gaussian function with sigma=localization accuracy. Returns convolved image.
+        receives super resolved image and localization precision from communication layer. Computes a convolution by Gaussian low pass filtering with a Gaussian function with sigma=localization precision. Returns convolved image.
     '''
     cdef str outfilename
     cdef cnp.ndarray[double, ndim=2] BW1
@@ -297,17 +297,19 @@ def imb_ana(cnp.ndarray mask, cnp.ndarray[double, ndim=2] BW0, cnp.ndarray[doubl
     Image.fromarray(np.uint8(np.multiply(BW0,binary))).save(im_name)
     
     label_im, nb_labels = ndimage.label(label_im)
-    coord  = (np.array(ndimage.center_of_mass(BW0,label_im, range(nb_labels+1))))[1:,[1, 0]]
-    sizes  = (ndimage.sum(mask, label_im, range(nb_labels + 1)))[1:]
+    #coord  = (np.array(ndimage.center_of_mass(BW0,label_im, range(nb_labels+1))))[1:,[1, 0]]
+    coord  = (np.array(ndimage.center_of_mass(BW0,label_im, range(nb_labels+1))))[:,[1, 0]]
+    #sizes  = (ndimage.sum(mask, label_im, range(nb_labels + 1)))[1:]
+    sizes  = (ndimage.sum(mask, label_im, range(nb_labels + 1)))[:]
     l=len(coord[:,0])
     mca_res  = np.zeros([l,5])
     mca_res[:,0]  = roi[0,0]+np.dot(coord[:, 0],pxl)
     mca_res[:,1]  = roi[1,0]+np.dot(coord[:, 1],pxl)
     mca_res[:,2]  = np.dot(sizes,(pxl**2))
     mca_res[:,3]  = np.dot(np.sqrt(np.divide(sizes,np.pi)),pxl)
-    mca_res[:,4]  = ndimage.sum(BW0, label_im, range(nb_labels))
-    hd=str('morphological cluster analysis LAMA format\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]')
-    outname=dir_name+'/mca_roi.txt'
+    mca_res[:,4]  = ndimage.sum(BW0, label_im, range(nb_labels+1))
+    hd=str('morphological cluster analysis LAMA format\nnumber of cluster: %i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]'%(l))
+    outname=dir_name+'/mca_analysis.txt'
     np.savetxt(outname, mca_res[1:,:], fmt='%.5e', delimiter='   ', header = hd, comments='# ')
 
 def print_theo_acc(cnp.ndarray[double, ndim=1] acc_list, str name):
@@ -336,7 +338,7 @@ def print_theo_acc(cnp.ndarray[double, ndim=1] acc_list, str name):
 
 def Thompson(cnp.ndarray[double, ndim=2] locs, float con_fac, float pxl_size, float noise, float sigma, str dir_name):
     '''
-        Receives list of localizations in MALK format and experimental setup characteristics from communication layer. Computes the theoretical achieved localization accuracy after the method of Thompson et al. and Mortensen et al. Saves localization accuracy.
+        Receives list of localizations in MALK format and experimental setup characteristics from communication layer. Computes the theoretical achieved localization precision after the method of Thompson et al. and Mortensen et al. Saves localization precision.
     '''
     cdef str outname, thom_name, mort_name, hd
     cdef int length, i
@@ -359,7 +361,7 @@ def Thompson(cnp.ndarray[double, ndim=2] locs, float con_fac, float pxl_size, fl
     Mor_mean = np.mean(theo_acc[:,1])
     Mor_med = np.median(theo_acc[:,1])
     Mor_std = np.std(theo_acc[:,1])
-    hd='theoretical caluculated localization accuracy (Lama format)\nTho_mean = %.2f[nm]\tTho_med = %.2f[nm]\tTho_std = %.2f[nm]\nMor_mean = %.2f[nm]\tMor_med = %.2f[nm]\tMor_std = %.2f[nm]\nThompson [nm]\tMortensen [nm]' %(Tho_mean, Tho_med, Tho_std, Mor_mean, Mor_med, Mor_std)
+    hd='theoretical caluculated localization precision (Lama format)\nTho_mean = %.2f[nm]\tTho_med = %.2f[nm]\tTho_std = %.2f[nm]\nMor_mean = %.2f[nm]\tMor_med = %.2f[nm]\tMor_std = %.2f[nm]\nThompson [nm]\tMortensen [nm]' %(Tho_mean, Tho_med, Tho_std, Mor_mean, Mor_med, Mor_std)
     outname=dir_name+'/theo_lac.txt'
     np.savetxt(outname, theo_acc, fmt='%.5e', delimiter='   ', header = hd, comments='# ')
     thom_name=dir_name+'/thom_acc.pdf'
@@ -378,7 +380,7 @@ def min_dist(cnp.ndarray[double, ndim=1] point, cnp.ndarray[double, ndim=2]locs)
 
 def NeNA(cnp.ndarray[double, ndim=2] locs, str dir_name):
     '''
-        Receives list of localizations in MALK format. Computes the nearest neighbor distance for every localization. Computes the nearest neighbor distribution. Fits the distribution to a probability density of a jump-distance of a Brownian motion with infinitesimal small diffusion coefficient and Gaussian localization accuracy. Saves the NeNA distribution and the fit result.
+        Receives list of localizations in MALK format. Computes the nearest neighbor distance for every localization. Computes the nearest neighbor distribution. Fits the distribution to a probability density of a jump-distance of a Brownian motion with infinitesimal small diffusion coefficient and Gaussian localization precision. Saves the NeNA distribution and the fit result.
     '''
     cdef str outname, hd
     cdef int length, i, max_frame
@@ -414,7 +416,7 @@ def NeNA(cnp.ndarray[double, ndim=2] locs, str dir_name):
     idx=d>0
     NeNA_dist=d[idx]
     NeNA_acc, NeNA_err=plot_NeNA(NeNA_dist,dir_name)
-    hd=str('the average localization accuracy by NeNA is at %.1f [nm]' %(float(NeNA_acc[0])))
+    hd=str('the average localization precision by NeNA is at %.1f [nm]' %(float(NeNA_acc[0])))
     outname=dir_name+'/NeNA_lac.txt'
     np.savetxt(outname, NeNA_dist, fmt='%.5e', delimiter='   ',header=hd,comments='# ')
 
@@ -531,6 +533,7 @@ def draw_roi(cnp.ndarray[double, ndim=2] BW, cnp.ndarray[double, ndim=2] buds, i
         draw.point((x,y), fill=255)
     Im.save(Clustername)
 
+
 def link_fuducials(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndim=2] buds02, int rmax):
     '''
         Receives two fiducial localization lists from corresponding channels and a distance threshold parameter. Sorts and links corresponding fiducials. Returns sorted  fiducial localization lists.
@@ -566,7 +569,16 @@ def link_fuducials(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndim=
             idx01=np.append(idx01,i).astype('int')
     idx01=np.delete(idx01,0)
     buds02=buds02[idx01,:]
+    distMat = np.zeros([np.shape(buds02)[0],np.shape(buds01)[0]])
+    for i in range (0, np.shape(buds02)[0]):
+        for j in range (0, np.shape(buds01)[0]):
+            distMat[i,j]=np.sqrt(((buds01[j,0]-buds02[i,0])**2)+((buds01[j,1]-buds02[i,1])**2))
+    minDistInd = np.argmin(distMat, axis=1)
+    buds02 = buds02[minDistInd,:]
     return buds01,buds02
+
+
+
 
 def plot_buds(cnp.ndarray[double, ndim=2] buds01, cnp.ndarray[double, ndim=2]buds02, str name):
     '''
@@ -1030,7 +1042,7 @@ def write_settings(cnp.ndarray[double, ndim=2] settings, str dir_name):
     out_file.write('%.3f\n' %(settings[21]))
     out_file.write('%.3f\n' %(settings[22]))
     out_file.write('%.3f\n' %(settings[23]))
-    out_file.write('# Accuracy:\n')
+    out_file.write('# Precision:\n')
     out_file.write('%.3f\n' %(settings[24]))
     out_file.write('%.3f\n' %(settings[25]))
     out_file.write('%.3f\n' %(settings[26]))

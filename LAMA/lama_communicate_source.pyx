@@ -59,7 +59,7 @@ def analyze_roi_int(cnp.ndarray[double, ndim=2] roi, int pxl, str file, int conv
 
 def calc_Thompson(str file, cnp.ndarray[double, ndim=2] roi, float con_fac, float pxl_size, float noise, float sigma, str append):
     '''
-        receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
+        receives necessary parameters from communication layer and calls algorithms to compute the localization precision theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
     '''
     cdef str dir_name
     cdef cnp.ndarray[double, ndim=2] locs, roi_locs
@@ -71,7 +71,7 @@ def calc_Thompson(str file, cnp.ndarray[double, ndim=2] roi, float con_fac, floa
 
 def calc_NeNA(str file, cnp.ndarray[double, ndim=2] roi, str append):
     '''
-        receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
+        receives necessary parameters from communication layer and calls algorithms to compute the localization precision experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
     '''
     cdef str dir_name
     cdef cnp.ndarray[double, ndim=2] locs, roi_locs
@@ -272,7 +272,7 @@ def hierarchical_cluster_Analysis(file, roi, pxl, eps, pmin, cond, append, hcaTy
         cluster_ana[:,4] = hc_ana.blinks[:,0]
     # save cluster
     outfilename = dir_name + hcaType
-    hd=str('hierarchical cluster analysis (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(float(eps), int(pmin), int(hc_ana.cnum-1)))
+    hd=str('hierarchical cluster analysis (LAMA format)\ncluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(int(hc_ana.cnum-1)))
     np.savetxt(outfilename, cluster_ana, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
     # plot cluster
     fixed_ind = 1

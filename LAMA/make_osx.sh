@@ -1,6 +1,6 @@
 #!/bin/sh
 
-##  make.sh
+##  make_osx.sh
 ##  LAMA
 ##
 ##  Created by Sebastian Malkusch on 10.06.15.
@@ -23,5 +23,6 @@
 ### make file to build python extension modules, compile the program, and embed the python interpreter in order to build a standalone application
 
 python3.4 cythonize_lama.py build_ext --inplace
-#python3.4 setup_freeze.py build --iconfile lama.icns --bundle_name Lama
-#python3.4 setup_freeze.py bdist_mac
+rm -rf build dist
+#python3.4 setup_win.py build
+python3.4 setup.py bdist_mac

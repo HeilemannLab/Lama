@@ -27,8 +27,9 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+
 from mainwindow import MainWindow
-ver = 1510
+ver = 1601
 print ('\nSingle Molecule Biophysics\nUniversity of Frankfurt\nloading the Lama...\n')
 if __name__ == '__main__':
 

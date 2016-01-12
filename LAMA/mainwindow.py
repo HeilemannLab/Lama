@@ -84,9 +84,9 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_01.textChanged.connect(self.drop_input_path)
     # create image and MCA 
         self.ui.pushButton_02.clicked.connect(self.visualize)
-    # calculate Thompson accuracy
+    # calculate Thompson precision
         self.ui.pushButton_03.clicked.connect(self.Thompson_acc)
-    # calculate NeNA accuracy
+    # calculate NeNA precision
         self.ui.pushButton_04.clicked.connect(self.NeNA_acc)
     # Ripley's K-function
         self.ui.pushButton_05.clicked.connect(self.ripley)
@@ -371,7 +371,7 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_14.setText(str(settings[13,0]))
         # Visualize / Iamge
         self.ui.lineEdit_15.setText(str(int(settings[14,0])))
-        self.ui.lineEdit_16.setText(str(settings[15,0]))
+        self.ui.lineEdit_16.setText(str(int(settings[15,0])))
         self.ui.lineEdit_17.setText(str(int(settings[16,0])))
         if settings[17,0]==1.0:
             self.ui.radioButton_03.setChecked(True)
@@ -393,7 +393,7 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_18.setText(str(int(settings[21,0])))
         self.ui.lineEdit_19.setText(str(int(settings[22,0])))
         self.ui.lineEdit_20.setText(str(int(settings[23,0])))
-        # Accuracy / Theoretical
+        # Precision / Theoretical
         self.ui.lineEdit_21.setText(str(settings[24,0]))
         self.ui.lineEdit_22.setText(str(settings[25,0]))
         self.ui.lineEdit_23.setText(str(settings[26,0]))
@@ -405,7 +405,7 @@ class MainWindow ( QMainWindow ):
         self.ui.lineEdit_28.setText(str(int(settings[30,0])))
         self.ui.lineEdit_29.setText(str(int(settings[31,0])))
         self.ui.lineEdit_30.setText(str(int(settings[32,0])))
-        self.ui.lineEdit_31.setText(str(settings[33,0]))
+        self.ui.lineEdit_31.setText(str(int(settings[33,0])))
         # Register / Registration
         self.ui.lineEdit_32.setText(str(int(settings[34,0])))
         if settings[35,0]==1.0:
@@ -502,7 +502,7 @@ class MainWindow ( QMainWindow ):
         settings[21]=float(self.ui.lineEdit_18.text())
         settings[22]=float(self.ui.lineEdit_19.text())
         settings[23]=float(self.ui.lineEdit_20.text())
-        # Accuracy / Theoretical
+        # Precision / Theoretical
         settings[24]=float(self.ui.lineEdit_21.text())
         settings[25]=float(self.ui.lineEdit_22.text())
         settings[26]=float(self.ui.lineEdit_23.text())

@@ -1432,13 +1432,13 @@ static char __pyx_k_register_channels_trans[] = "register_channels_trans";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static char __pyx_k_the_lama_is_pronking_through[] = "the lama is pronking through ";
 static char __pyx_k_hierarchical_cluster_Analysis[] = "hierarchical_cluster_Analysis";
-static char __pyx_k_Users_malkusch_Documents_Python[] = "/Users/malkusch/Documents/Python/git/lama/LAMA/lama_communicate_source.pyx";
+static char __pyx_k_Users_malkusch_Documents_Code_g[] = "/Users/malkusch/Documents/Code/git/lama/LAMA/lama_communicate_source.pyx";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static char __pyx_k_DBSCAN_LAMA_format_eps_2f_nm_pmi[] = "DBSCAN (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tt[frame]\tcluster";
 static char __pyx_k_DBSCAN_LAMA_format_pmin_i_x_nm_y[] = "DBSCAN (LAMA format)\npmin=%i\nx[nm]\ty[nm]\tt[frame]\torder[a.u.]\treach distance[nm]";
 static char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
-static char __pyx_k_hierarchical_cluster_analysis_LA[] = "hierarchical cluster analysis (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]";
+static char __pyx_k_hierarchical_cluster_analysis_LA[] = "hierarchical cluster analysis (LAMA format)\ncluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]";
 static char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static char __pyx_k_the_lama_got_the_job_done_and_is[] = "the lama got the job done and is going to rest!";
 static char __pyx_k_the_lama_is_calculating_a_linear[] = "the lama is calculating a linear registration";
@@ -1466,7 +1466,7 @@ static PyObject *__pyx_n_s_RipleysK;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_SMCounting;
 static PyObject *__pyx_n_s_Thompson;
-static PyObject *__pyx_kp_s_Users_malkusch_Documents_Python;
+static PyObject *__pyx_kp_s_Users_malkusch_Documents_Code_g;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_kp_s__22;
 static PyObject *__pyx_kp_s__23;
@@ -2897,12 +2897,12 @@ static PyObject *__pyx_pf_16lama_communicate_2analyze_roi_int(CYTHON_UNUSED PyOb
  * 
  * def calc_Thompson(str file, cnp.ndarray[double, ndim=2] roi, float con_fac, float pxl_size, float noise, float sigma, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_16lama_communicate_5calc_Thompson(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_16lama_communicate_4calc_Thompson[] = "\n        receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.\n    ";
+static char __pyx_doc_16lama_communicate_4calc_Thompson[] = "\n        receives necessary parameters from communication layer and calls algorithms to compute the localization precision theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.\n    ";
 static PyMethodDef __pyx_mdef_16lama_communicate_5calc_Thompson = {"calc_Thompson", (PyCFunction)__pyx_pw_16lama_communicate_5calc_Thompson, METH_VARARGS|METH_KEYWORDS, __pyx_doc_16lama_communicate_4calc_Thompson};
 static PyObject *__pyx_pw_16lama_communicate_5calc_Thompson(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_file = 0;
@@ -3302,7 +3302,7 @@ static PyObject *__pyx_pf_16lama_communicate_4calc_Thompson(CYTHON_UNUSED PyObje
  * 
  * def calc_Thompson(str file, cnp.ndarray[double, ndim=2] roi, float con_fac, float pxl_size, float noise, float sigma, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
  */
 
   /* function exit code */
@@ -3344,12 +3344,12 @@ static PyObject *__pyx_pf_16lama_communicate_4calc_Thompson(CYTHON_UNUSED PyObje
  * 
  * def calc_NeNA(str file, cnp.ndarray[double, ndim=2] roi, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_16lama_communicate_7calc_NeNA(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_16lama_communicate_6calc_NeNA[] = "\n        receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.\n    ";
+static char __pyx_doc_16lama_communicate_6calc_NeNA[] = "\n        receives necessary parameters from communication layer and calls algorithms to compute the localization precision experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.\n    ";
 static PyMethodDef __pyx_mdef_16lama_communicate_7calc_NeNA = {"calc_NeNA", (PyCFunction)__pyx_pw_16lama_communicate_7calc_NeNA, METH_VARARGS|METH_KEYWORDS, __pyx_doc_16lama_communicate_6calc_NeNA};
 static PyObject *__pyx_pw_16lama_communicate_7calc_NeNA(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_file = 0;
@@ -3690,7 +3690,7 @@ static PyObject *__pyx_pf_16lama_communicate_6calc_NeNA(CYTHON_UNUSED PyObject *
  * 
  * def calc_NeNA(str file, cnp.ndarray[double, ndim=2] roi, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
  */
 
   /* function exit code */
@@ -9503,9 +9503,8 @@ static PyObject *__pyx_pf_16lama_communicate_24hierarchical_cluster_Analysis(CYT
   Py_ssize_t __pyx_t_5;
   PyObject *__pyx_t_6 = NULL;
   int __pyx_t_7;
-  double __pyx_t_8;
+  PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
-  PyObject *__pyx_t_10 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -9768,7 +9767,7 @@ static PyObject *__pyx_pf_16lama_communicate_24hierarchical_cluster_Analysis(CYT
  *         cluster_ana[:,4] = hc_ana.blinks[:,0]
  *     # save cluster
  *     outfilename = dir_name + hcaType             # <<<<<<<<<<<<<<
- *     hd=str('hierarchical cluster analysis (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(float(eps), int(pmin), int(hc_ana.cnum-1)))
+ *     hd=str('hierarchical cluster analysis (LAMA format)\ncluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(int(hc_ana.cnum-1)))
  *     np.savetxt(outfilename, cluster_ana, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
  */
   __pyx_t_3 = PyNumber_Add(__pyx_v_dir_name, __pyx_v_hcaType); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -9779,80 +9778,64 @@ static PyObject *__pyx_pf_16lama_communicate_24hierarchical_cluster_Analysis(CYT
   /* "lama_communicate_source.pyx":275
  *     # save cluster
  *     outfilename = dir_name + hcaType
- *     hd=str('hierarchical cluster analysis (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(float(eps), int(pmin), int(hc_ana.cnum-1)))             # <<<<<<<<<<<<<<
+ *     hd=str('hierarchical cluster analysis (LAMA format)\ncluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(int(hc_ana.cnum-1)))             # <<<<<<<<<<<<<<
  *     np.savetxt(outfilename, cluster_ana, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
  *     # plot cluster
  */
-  __pyx_t_8 = __Pyx_PyObject_AsDouble(__pyx_v_eps); if (unlikely(__pyx_t_8 == ((double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_t_8); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_hc_ana, __pyx_n_s_cnum); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyNumber_Int(__pyx_v_pmin); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_t_3, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_hc_ana, __pyx_n_s_cnum); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_t_4, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Int(__pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyNumber_Int(__pyx_t_1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyString_Format(__pyx_kp_s_hierarchical_cluster_analysis_LA, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_t_4);
-  __pyx_t_3 = 0;
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_hierarchical_cluster_analysis_LA, __pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_6, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_v_hd = __pyx_t_4;
-  __pyx_t_4 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 275; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_hd = __pyx_t_1;
+  __pyx_t_1 = 0;
 
   /* "lama_communicate_source.pyx":276
  *     outfilename = dir_name + hcaType
- *     hd=str('hierarchical cluster analysis (LAMA format)\neps=%.2f[nm], pmin=%i, cluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(float(eps), int(pmin), int(hc_ana.cnum-1)))
+ *     hd=str('hierarchical cluster analysis (LAMA format)\ncluster=%i\nx[nm]\ty[nm]\tsize[nm*nm]\tr[nm]\tI[a.u.]' %(int(hc_ana.cnum-1)))
  *     np.savetxt(outfilename, cluster_ana, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )             # <<<<<<<<<<<<<<
  *     # plot cluster
  *     fixed_ind = 1
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_savetxt); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_savetxt); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_outfilename);
   __Pyx_GIVEREF(__pyx_v_outfilename);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_outfilename);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_outfilename);
   __Pyx_INCREF(__pyx_v_cluster_ana);
   __Pyx_GIVEREF(__pyx_v_cluster_ana);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_cluster_ana);
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_fmt, __pyx_kp_s_5e) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_delimiter, __pyx_kp_s__22) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_header, __pyx_v_hd) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_comments, __pyx_kp_s__23) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_cluster_ana);
+  __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_fmt, __pyx_kp_s_5e) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_delimiter, __pyx_kp_s__22) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_header, __pyx_v_hd) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_comments, __pyx_kp_s__23) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 276; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "lama_communicate_source.pyx":278
  *     np.savetxt(outfilename, cluster_ana, fmt='%.5e', delimiter='   ', header = hd, comments='# ' )
@@ -9879,63 +9862,63 @@ static PyObject *__pyx_pf_16lama_communicate_24hierarchical_cluster_Analysis(CYT
  *     la.make_hc_color_Images(roi_locs, hc_ana.cnum, roi, pxl, dir_name)
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_la); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_make_hc_Images); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_la); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hc_ana, __pyx_n_s_cnum); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_make_hc_Images); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_v_fixed_ind); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_hc_ana, __pyx_n_s_cnum); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_fixed_ind); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v_fix_val); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_9 = NULL;
+  __pyx_t_8 = NULL;
   __pyx_t_5 = 0;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_9)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_9);
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
       __pyx_t_5 = 1;
     }
   }
-  __pyx_t_10 = PyTuple_New(8+__pyx_t_5); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_10);
-  if (__pyx_t_9) {
-    __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_9); __pyx_t_9 = NULL;
+  __pyx_t_9 = PyTuple_New(8+__pyx_t_5); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_9);
+  if (__pyx_t_8) {
+    __Pyx_GIVEREF(__pyx_t_8); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_8); __pyx_t_8 = NULL;
   }
   __Pyx_INCREF(__pyx_v_roi_locs);
   __Pyx_GIVEREF(__pyx_v_roi_locs);
-  PyTuple_SET_ITEM(__pyx_t_10, 0+__pyx_t_5, __pyx_v_roi_locs);
+  PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_5, __pyx_v_roi_locs);
   __Pyx_INCREF(__pyx_v_cluster_ana);
   __Pyx_GIVEREF(__pyx_v_cluster_ana);
-  PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_5, __pyx_v_cluster_ana);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_10, 2+__pyx_t_5, __pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_5, __pyx_v_cluster_ana);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_9, 2+__pyx_t_5, __pyx_t_4);
   __Pyx_INCREF(__pyx_v_roi);
   __Pyx_GIVEREF(__pyx_v_roi);
-  PyTuple_SET_ITEM(__pyx_t_10, 3+__pyx_t_5, __pyx_v_roi);
+  PyTuple_SET_ITEM(__pyx_t_9, 3+__pyx_t_5, __pyx_v_roi);
   __Pyx_INCREF(__pyx_v_pxl);
   __Pyx_GIVEREF(__pyx_v_pxl);
-  PyTuple_SET_ITEM(__pyx_t_10, 4+__pyx_t_5, __pyx_v_pxl);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_10, 5+__pyx_t_5, __pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_9, 4+__pyx_t_5, __pyx_v_pxl);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_9, 5+__pyx_t_5, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_10, 6+__pyx_t_5, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_9, 6+__pyx_t_5, __pyx_t_2);
   __Pyx_INCREF(__pyx_v_dir_name);
   __Pyx_GIVEREF(__pyx_v_dir_name);
-  PyTuple_SET_ITEM(__pyx_t_10, 7+__pyx_t_5, __pyx_v_dir_name);
-  __pyx_t_1 = 0;
-  __pyx_t_6 = 0;
+  PyTuple_SET_ITEM(__pyx_t_9, 7+__pyx_t_5, __pyx_v_dir_name);
+  __pyx_t_4 = 0;
+  __pyx_t_3 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 280; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "lama_communicate_source.pyx":281
  *     fix_val = 255
@@ -9944,50 +9927,50 @@ static PyObject *__pyx_pf_16lama_communicate_24hierarchical_cluster_Analysis(CYT
  * 
  * 
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_la); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_make_hc_color_Images); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_hc_ana, __pyx_n_s_cnum); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_la); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_make_hc_color_Images); if (unlikely(!__pyx_t_9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hc_ana, __pyx_n_s_cnum); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = NULL;
   __pyx_t_5 = 0;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_10))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_9))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_9);
     if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_9);
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_10, function);
+      __Pyx_DECREF_SET(__pyx_t_9, function);
       __pyx_t_5 = 1;
     }
   }
-  __pyx_t_6 = PyTuple_New(5+__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_3 = PyTuple_New(5+__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
   if (__pyx_t_2) {
-    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
   }
   __Pyx_INCREF(__pyx_v_roi_locs);
   __Pyx_GIVEREF(__pyx_v_roi_locs);
-  PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_5, __pyx_v_roi_locs);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_5, __pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_5, __pyx_v_roi_locs);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_5, __pyx_t_1);
   __Pyx_INCREF(__pyx_v_roi);
   __Pyx_GIVEREF(__pyx_v_roi);
-  PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_5, __pyx_v_roi);
+  PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_5, __pyx_v_roi);
   __Pyx_INCREF(__pyx_v_pxl);
   __Pyx_GIVEREF(__pyx_v_pxl);
-  PyTuple_SET_ITEM(__pyx_t_6, 3+__pyx_t_5, __pyx_v_pxl);
+  PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_5, __pyx_v_pxl);
   __Pyx_INCREF(__pyx_v_dir_name);
   __Pyx_GIVEREF(__pyx_v_dir_name);
-  PyTuple_SET_ITEM(__pyx_t_6, 4+__pyx_t_5, __pyx_v_dir_name);
-  __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_6, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  PyTuple_SET_ITEM(__pyx_t_3, 4+__pyx_t_5, __pyx_v_dir_name);
+  __pyx_t_1 = 0;
+  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 281; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
   /* "lama_communicate_source.pyx":260
  *     la.plot_dbscan(DB_locs,hc.cnum,dir_name)
@@ -10006,8 +9989,8 @@ static PyObject *__pyx_pf_16lama_communicate_24hierarchical_cluster_Analysis(CYT
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_XDECREF(__pyx_t_10);
   __Pyx_AddTraceback("lama_communicate.hierarchical_cluster_Analysis", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -13710,7 +13693,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_SMCounting, __pyx_k_SMCounting, sizeof(__pyx_k_SMCounting), 0, 0, 1, 1},
   {&__pyx_n_s_Thompson, __pyx_k_Thompson, sizeof(__pyx_k_Thompson), 0, 0, 1, 1},
-  {&__pyx_kp_s_Users_malkusch_Documents_Python, __pyx_k_Users_malkusch_Documents_Python, sizeof(__pyx_k_Users_malkusch_Documents_Python), 0, 0, 1, 0},
+  {&__pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_k_Users_malkusch_Documents_Code_g, sizeof(__pyx_k_Users_malkusch_Documents_Code_g), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_kp_s__22, __pyx_k__22, sizeof(__pyx_k__22), 0, 0, 1, 0},
   {&__pyx_kp_s__23, __pyx_k__23, sizeof(__pyx_k__23), 0, 0, 1, 0},
@@ -14251,7 +14234,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     '''
  *         Communicates a message of success to the terminal.
  */
-  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_statement, 26, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__54 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_statement, 26, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__54)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":32
  *     print ('the lama got the job done and is going to rest!')
@@ -14263,31 +14246,31 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__55 = PyTuple_Pack(20, __pyx_n_s_roi, __pyx_n_s_pxl, __pyx_n_s_file, __pyx_n_s_conv_ind, __pyx_n_s_acc, __pyx_n_s_fixed_ind, __pyx_n_s_fix_val, __pyx_n_s_cbc_ind, __pyx_n_s_mca_ind, __pyx_n_s_thr, __pyx_n_s_min_r, __pyx_n_s_max_r, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_sigma, __pyx_n_s_locs, __pyx_n_s_roi_locs, __pyx_n_s_BW0, __pyx_n_s_BW1, __pyx_n_s_mask); if (unlikely(!__pyx_tuple__55)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__55);
   __Pyx_GIVEREF(__pyx_tuple__55);
-  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(13, 0, 20, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_analyze_roi_int, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__56 = (PyObject*)__Pyx_PyCode_New(13, 0, 20, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__55, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_analyze_roi_int, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__56)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":60
  * 
  * 
  * def calc_Thompson(str file, cnp.ndarray[double, ndim=2] roi, float con_fac, float pxl_size, float noise, float sigma, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
  */
   __pyx_tuple__57 = PyTuple_Pack(10, __pyx_n_s_file, __pyx_n_s_roi, __pyx_n_s_con_fac, __pyx_n_s_pxl_size, __pyx_n_s_noise, __pyx_n_s_sigma, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_locs, __pyx_n_s_roi_locs); if (unlikely(!__pyx_tuple__57)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__57);
   __Pyx_GIVEREF(__pyx_tuple__57);
-  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(7, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_calc_Thompson, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__58 = (PyObject*)__Pyx_PyCode_New(7, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__57, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_calc_Thompson, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__58)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":72
  *     la.Thompson(roi_locs,con_fac,pxl_size,noise,sigma,dir_name)
  * 
  * def calc_NeNA(str file, cnp.ndarray[double, ndim=2] roi, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
  */
   __pyx_tuple__59 = PyTuple_Pack(6, __pyx_n_s_file, __pyx_n_s_roi, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_locs, __pyx_n_s_roi_locs); if (unlikely(!__pyx_tuple__59)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__59);
   __Pyx_GIVEREF(__pyx_tuple__59);
-  __pyx_codeobj__60 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_calc_NeNA, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__60)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__60 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__59, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_calc_NeNA, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__60)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":84
  *     la.NeNA(roi_locs,dir_name)
@@ -14299,7 +14282,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__61 = PyTuple_Pack(2, __pyx_n_s_file, __pyx_n_s_rois); if (unlikely(!__pyx_tuple__61)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__61);
   __Pyx_GIVEREF(__pyx_tuple__61);
-  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__61, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_calc_ripley_rois, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__61, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_calc_ripley_rois, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":93
  *     return rois
@@ -14311,7 +14294,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__63 = PyTuple_Pack(17, __pyx_n_s_file, __pyx_n_s_rois, __pyx_n_s_edge, __pyx_n_s_radius, __pyx_n_s_inc_num, __pyx_n_s_pxl, __pyx_n_s_fixed_ind, __pyx_n_s_fix_val, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_roi_append, __pyx_n_s_roi_dir_name, __pyx_n_s_i, __pyx_n_s_locs, __pyx_n_s_roi, __pyx_n_s_roi_locs, __pyx_n_s_roi_box); if (unlikely(!__pyx_tuple__63)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__63);
   __Pyx_GIVEREF(__pyx_tuple__63);
-  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(9, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_calc_ripley, 93, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(9, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_calc_ripley, 93, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":116
  *         la.RipleysK(roi_locs,roi_box,inc_num,radius,edge,roi_dir_name)
@@ -14323,7 +14306,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__65 = PyTuple_Pack(11, __pyx_n_s_files, __pyx_n_s_roi, __pyx_n_s_r_min, __pyx_n_s_r_max, __pyx_n_s_on_min, __pyx_n_s_on_max, __pyx_n_s_dir_name, __pyx_n_s_append, __pyx_n_s_i, __pyx_n_s_fas, __pyx_n_s_file_name); if (unlikely(!__pyx_tuple__65)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__65);
   __Pyx_GIVEREF(__pyx_tuple__65);
-  __pyx_codeobj__66 = (PyObject*)__Pyx_PyCode_New(6, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_callBeadDetection, 116, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__66)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__66 = (PyObject*)__Pyx_PyCode_New(6, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__65, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_callBeadDetection, 116, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__66)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":134
  * 
@@ -14335,7 +14318,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__67 = PyTuple_Pack(14, __pyx_n_s_files, __pyx_n_s_disp, __pyx_n_s_reg_ind, __pyx_n_s_dir_name, __pyx_n_s_i, __pyx_n_s_locs_temp, __pyx_n_s_buds_temp, __pyx_n_s_sort_buds_temp, __pyx_n_s_locs, __pyx_n_s_BW1, __pyx_n_s_buds, __pyx_n_s_sort_buds, __pyx_n_s_fids01, __pyx_n_s_fids02); if (unlikely(!__pyx_tuple__67)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__67);
   __Pyx_GIVEREF(__pyx_tuple__67);
-  __pyx_codeobj__68 = (PyObject*)__Pyx_PyCode_New(3, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_calc_registration, 134, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__68)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__68 = (PyObject*)__Pyx_PyCode_New(3, 0, 14, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__67, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_calc_registration, 134, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__68)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":158
  * 
@@ -14347,7 +14330,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__69 = PyTuple_Pack(18, __pyx_n_s_file_A, __pyx_n_s_file_B, __pyx_n_s_roi, __pyx_n_s_r_max, __pyx_n_s_inc_num, __pyx_n_s_wf, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_name_int_A, __pyx_n_s_name_int_B, __pyx_n_s_name_cbc_A, __pyx_n_s_name_cbc_B, __pyx_n_s_locs_A, __pyx_n_s_roi_locs_A, __pyx_n_s_locs_B, __pyx_n_s_roi_locs_B, __pyx_n_s_cbc_origin, __pyx_n_s_cbc_partner); if (unlikely(!__pyx_tuple__69)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__69);
   __Pyx_GIVEREF(__pyx_tuple__69);
-  __pyx_codeobj__70 = (PyObject*)__Pyx_PyCode_New(7, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__69, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_cbc_coloc, 158, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__70)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__70 = (PyObject*)__Pyx_PyCode_New(7, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__69, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_cbc_coloc, 158, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__70)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":181
  *     la.create_cbc_roi(roi_locs_B,roi,dir_name,name_cbc_B)
@@ -14359,7 +14342,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__71 = PyTuple_Pack(15, __pyx_n_s_file, __pyx_n_s_roi, __pyx_n_s_r_max, __pyx_n_s_inc_num, __pyx_n_s_wf, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_name_cbc, __pyx_n_s_locs, __pyx_n_s_roi_locs, __pyx_n_s_locs_A, __pyx_n_s_locs_B, __pyx_n_s_cbc_locs, __pyx_n_s_cbc_origin, __pyx_n_s_cbc_partner); if (unlikely(!__pyx_tuple__71)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__71);
   __Pyx_GIVEREF(__pyx_tuple__71);
-  __pyx_codeobj__72 = (PyObject*)__Pyx_PyCode_New(6, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__71, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_cbc_cluster, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__72)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__72 = (PyObject*)__Pyx_PyCode_New(6, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__71, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_cbc_cluster, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__72)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":200
  *     la.create_cbc_roi(cbc_locs,roi,dir_name,name_cbc)
@@ -14371,7 +14354,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__73 = PyTuple_Pack(18, __pyx_n_s_file, __pyx_n_s_roi, __pyx_n_s_eps, __pyx_n_s_pmin, __pyx_n_s_pxl, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_hd, __pyx_n_s_outfilename, __pyx_n_s_dim, __pyx_n_s_cnum, __pyx_n_s_locs, __pyx_n_s_roi_locs, __pyx_n_s_cluster_ana, __pyx_n_s_hc, __pyx_n_s_hc_locs, __pyx_n_s_outfilename_01, __pyx_n_s_hd_01); if (unlikely(!__pyx_tuple__73)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__73);
   __Pyx_GIVEREF(__pyx_tuple__73);
-  __pyx_codeobj__74 = (PyObject*)__Pyx_PyCode_New(6, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__73, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_DBSCAN_based_clustering, 200, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__74)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__74 = (PyObject*)__Pyx_PyCode_New(6, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__73, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_DBSCAN_based_clustering, 200, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__74)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 200; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":225
  * 
@@ -14383,7 +14366,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__75 = PyTuple_Pack(19, __pyx_n_s_file, __pyx_n_s_roi, __pyx_n_s_eps, __pyx_n_s_noise_ind, __pyx_n_s_pmin, __pyx_n_s_pxl, __pyx_n_s_append, __pyx_n_s_dir_name, __pyx_n_s_hd_01, __pyx_n_s_outfilename_01, __pyx_n_s_hd_02, __pyx_n_s_outfilename_02, __pyx_n_s_dim, __pyx_n_s_new_eps, __pyx_n_s_locs, __pyx_n_s_roi_locs, __pyx_n_s_hc_locs, __pyx_n_s_DB_locs, __pyx_n_s_hc); if (unlikely(!__pyx_tuple__75)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__75);
   __Pyx_GIVEREF(__pyx_tuple__75);
-  __pyx_codeobj__76 = (PyObject*)__Pyx_PyCode_New(7, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__75, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_OPTICS_based_clustering, 225, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__76)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__76 = (PyObject*)__Pyx_PyCode_New(7, 0, 19, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__75, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_OPTICS_based_clustering, 225, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__76)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 225; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":260
  *     la.plot_dbscan(DB_locs,hc.cnum,dir_name)
@@ -14395,7 +14378,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__77 = PyTuple_Pack(17, __pyx_n_s_file, __pyx_n_s_roi, __pyx_n_s_pxl, __pyx_n_s_eps, __pyx_n_s_pmin, __pyx_n_s_cond, __pyx_n_s_append, __pyx_n_s_hcaType, __pyx_n_s_locs, __pyx_n_s_dir_name, __pyx_n_s_roi_locs, __pyx_n_s_hc_ana, __pyx_n_s_cluster_ana, __pyx_n_s_outfilename, __pyx_n_s_hd, __pyx_n_s_fixed_ind, __pyx_n_s_fix_val); if (unlikely(!__pyx_tuple__77)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__77);
   __Pyx_GIVEREF(__pyx_tuple__77);
-  __pyx_codeobj__78 = (PyObject*)__Pyx_PyCode_New(8, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__77, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_hierarchical_cluster_Analysis, 260, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__78)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__78 = (PyObject*)__Pyx_PyCode_New(8, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__77, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_hierarchical_cluster_Analysis, 260, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__78)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 260; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":284
  * 
@@ -14407,7 +14390,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__79 = PyTuple_Pack(17, __pyx_n_s_filename, __pyx_n_s_files, __pyx_n_s_roi, __pyx_n_s_rMin, __pyx_n_s_rMax, __pyx_n_s_iMin, __pyx_n_s_iMax, __pyx_n_s_pType, __pyx_n_s_p, __pyx_n_s_eps, __pyx_n_s_pmin, __pyx_n_s_append, __pyx_n_s_cluster, __pyx_n_s_i, __pyx_n_s_dir_name, __pyx_n_s_cnum, __pyx_n_s_smcount); if (unlikely(!__pyx_tuple__79)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__79);
   __Pyx_GIVEREF(__pyx_tuple__79);
-  __pyx_codeobj__80 = (PyObject*)__Pyx_PyCode_New(12, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__79, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_count_emitters, 284, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__80)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__80 = (PyObject*)__Pyx_PyCode_New(12, 0, 17, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__79, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_count_emitters, 284, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__80)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "lama_communicate_source.pyx":311
  * 
@@ -14419,7 +14402,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__81 = PyTuple_Pack(5, __pyx_n_s_name, __pyx_n_s_data_type, __pyx_n_s_settings, __pyx_n_s_roi, __pyx_n_s_rest_para); if (unlikely(!__pyx_tuple__81)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__81);
   __Pyx_GIVEREF(__pyx_tuple__81);
-  __pyx_codeobj__82 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__81, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Python, __pyx_n_s_load_settings, 311, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__82)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__82 = (PyObject*)__Pyx_PyCode_New(1, 0, 5, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__81, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_malkusch_Documents_Code_g, __pyx_n_s_load_settings, 311, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__82)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -14602,7 +14585,7 @@ PyMODINIT_FUNC PyInit_lama_communicate(void)
  * 
  * def calc_Thompson(str file, cnp.ndarray[double, ndim=2] roi, float con_fac, float pxl_size, float noise, float sigma, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision theoretically after the method of Thompson et al. and Mortensen et al. based on Setup conditions and fluorescent probe photon emission.
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16lama_communicate_5calc_Thompson, NULL, __pyx_n_s_lama_communicate); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -14614,7 +14597,7 @@ PyMODINIT_FUNC PyInit_lama_communicate(void)
  * 
  * def calc_NeNA(str file, cnp.ndarray[double, ndim=2] roi, str append):             # <<<<<<<<<<<<<<
  *     '''
- *         receives necessary parameters from communication layer and calls algorithms to compute the localization accuracy experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
+ *         receives necessary parameters from communication layer and calls algorithms to compute the localization precision experimentally after the method of Endesfelder et al. based on the mean localization error determined from multiple localizations of fluorescent probes.
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_16lama_communicate_7calc_NeNA, NULL, __pyx_n_s_lama_communicate); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
