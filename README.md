@@ -10,5 +10,4 @@ Availability and implementation: LAMA is written in Python and published open so
 Please cite:
 Malkusch, S. & Heilemann, M. (2016) Extracting quantitative information from single-molecule super-resolution imaging data with LAMA - LocAlization Microscopy Analyzer. Scientific reports 6, 34486.
 
-Tutorials and information can be obtained via:
-http://share.smb.uni-frankfurt.de/index.php/lama
+
